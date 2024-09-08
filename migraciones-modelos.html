@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0-beta3/css/all.min.css">
+    <title>migraciones y modelos </title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    
+    <div class="container mt-1">
+        <div class="row">
+            <div class="col-lg-6 col-md-4">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+                    <a class="navbar-brand font-weight-bold text-dark" href="/index.html">Doc Laravel</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar1" aria-controls="navbar1" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                
+                    
+                    <div class="collapse navbar-collapse" id="navbar1">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item active">
+                                <a class="nav-link text-dark" href="/index.html">Home <span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="/comandos-factory.html">Migraciones y Modelos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="/migraciones-modelos.html">Controladores y Modelos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="/laravel-sql.html">Tutoriales de Programación</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="/formularios-valicaciones.html">Formularios en laravel </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="d-flex justify-content-end"></div>
+                        <i id="themeToggle" class="fas fa-sun theme-icon" style="font-size: 24px;"></i>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-4  col-md-4 col-sm-4">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top w-25 mt-5" >
+                    <div class="container-fluid">
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul>
+                       
+                        <li><a href="#make-migration">php artisan make:migration</a></li>
+                        <li><a href="#php-artisan-migrate">php artisan migrate</a></li>
+                        <li><a href="#make-model">php artisan make:model</a></li>
+                        <li><a href="#make-model-m">php artisan make:model -m</a></li>
+                        <li><a href="#make-migration-add-phone">php artisan make:migration add_phone_to_doctors_table --table=doctors</a></li>
+                        <li><a href="#migrate-rollback">php artisan migrate:rollback</a></li>
+                        <li><a href="#migrate-path">php artisan migrate --path</a></li>
+                        <li><a href="#make-model-mc">php artisan make:model -mc</a></li>
+                        <li><a href="#make-model-f">php artisan make:model -f</a></li>
+                        <li><a href="#make-model-p">php artisan make:model -p</a></li>
+                        <li><a href="#migrate-refresh">php artisan migrate:refresh</a></li>
+                        <li><a href="#migrate-refresh-seed">php artisan migrate:refresh --seed</a></li>
+                        <li><a href="#migrate-path">php artisan migrate --path</a></li>
+                        <li><a href="#migrate-rollback-step">php artisan migrate:rollback --step=2</a></li>
+                        
+                        <li><a href="#make-seeder">php artisan make:seeder</a></li>
+                        <li><a href="#make-controller">php artisan make:controller</a></li>
+
+                        <li><a href="#make-migration">php artisan make:migration</a></li>
+                        <li><a href="#make-policy">php artisan make:policy</a></li>
+                        <li><a href="#authorize-controller">Uso de authorize en un controlador</a></li>
+                        <li><a href="#middleware-group">Aplicar un Middleware a un Grupo de Rutas</a></li>
+                        <li><a href="#middleware-method">Aplicar un Middleware a un Método Específico en el Controlador</a></li>
+                        <li><a href="#make-middleware">Generar un Middleware Personalizado</a></li>
+                        <li><a href="#assign-middleware">Asignar Middleware Personalizado a Rutas</a></li>
+                        <li><a href="#authorize-resource">Usar Políticas Automáticamente en Controladores de Recursos</a></li>
+                        <li><a href="#conditional-policy">Ejecutar Políticas Condicionales</a></li>
+                        <li><a href="#global-middleware">Aplicar Middleware Globalmente en la Aplicación</a></li>
+                        <li><a href="#make-factory">php artisan make:factory</a></li>
+                        <li><a href="#make-seeder">php artisan make:seeder</a></li>
+                    </ul>
+                    </div>
+
+                </nav>
+                
+            </div>
+        </div>
+        <div class="row">
+           
+
+            <div class="col-lg-4"></div>
+        <div class="col-lg-8 col-md-12 mt-5   justify-content-center">
+     
+   <section id="make-migration">
+    <h2>Comando: php artisan make:migration</h2>
+    <p><strong>Qué hace:</strong> Este comando crea un archivo de migración en la carpeta <code>database/migrations</code>. Las migraciones son archivos que contienen instrucciones para modificar la estructura de la base de datos, como crear, modificar o eliminar tablas y columnas.</p>
+    <p><strong>Cómo lo hace:</strong> Cuando ejecutas este comando, Laravel genera un archivo de migración con un nombre único basado en la fecha y hora actual. Este archivo incluye una estructura básica con dos métodos: <code>up()</code> (para aplicar los cambios) y <code>down()</code> (para revertirlos).</p>
+    <p><strong>Ejemplo:</strong></p>
+    <pre><code>php artisan make:migration create_doctors_table</code></pre>
+    <p>Este comando crea una migración llamada <code>create_doctors_table</code> que puede ser usada para crear la tabla <code>doctors</code>.</p>
+    <p><strong>Resultado esperado:</strong></p>
+    <pre><code>
+        use Illuminate\Database\Migrations\Migration;
+        use Illuminate\Database\Schema\Blueprint;
+        use Illuminate\Support\Facades\Schema;
+        
+        class CreateDoctorsTable extends Migration
+        {
+            public function up()
+            {
+                Schema::create('doctors', function (Blueprint $table) {
+                    $table->id();
+                    $table->string('nombre');
+                    $table->timestamps();
+                });
+            }
+        
+            public function down()
+            {
+                Schema::dropIfExists('doctors');
+            }
+        }
+    </code></pre>
+</section>
+<section id="php-artisan-migrate" class=" col-lg-8">
+    <h2>Comando: php artisan migrate</h2>
+    <p><strong>Qué hace:</strong> Este comando ejecuta todas las migraciones pendientes, aplicando los cambios definidos en los archivos de migración a la base de datos.</p>
+    <p><strong>Cómo lo hace:</strong> Laravel examina la tabla <code>migrations</code> en la base de datos para determinar qué migraciones ya se han ejecutado. Luego, aplica las migraciones pendientes ejecutando el método <code>up()</code> de cada archivo de migración.</p>
+    <p><strong>Ejemplo:</strong></p>
+    <pre><code>php artisan migrate</code></pre>
+    <p>Este comando aplica todas las migraciones pendientes, creando o modificando las tablas de la base de datos según las instrucciones de las migraciones.</p>
+    <p><strong>Resultado esperado:</strong> Si la tabla <code>doctors</code> no existía antes, ahora estará creada con las columnas especificadas en la migración.</p>
+
+    
+
+    <h2>Comando: php artisan make:migration</h2>
+    <p><strong>Qué hace:</strong> Este comando crea un archivo de migración en la carpeta <code>database/migrations</code>. Las migraciones permiten modificar la estructura de la base de datos.</p>
+    <p><strong>Cómo lo hace:</strong> Laravel genera una clase de migración con métodos <code>up()</code> y <code>down()</code> para definir los cambios y cómo revertirlos.</p>
+    <p><strong>Ejemplo:</strong></p>
+    <pre><code>php artisan make:migration add_specialty_to_doctors_table --table=doctors</code></pre>
+    <p><strong>Resultado esperado:</strong></p>
+    <pre><code>
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class AddSpecialtyToDoctorsTable extends Migration
+{
+    public function up()
+    {
+        Schema::table('doctors', function (Blueprint $table) {
+            $table->string('specialty')->nullable();
+        });
+    }
+
+    public function down()
+    {
+        Schema::table('doctors', function (Blueprint $table) {
+            $table->dropColumn('specialty');
+        });
+    }
+}
+    </code></pre>
+
+    <h2>Comando: php artisan make:job</h2>
+    <p><strong>Qué hace:</strong> Este comando crea una clase de trabajo en la carpeta <code>app/Jobs</code>. Los trabajos se utilizan para manejar tareas en segundo plano, como el procesamiento de trabajos asincrónicos.</p>
+    <p><strong>Cómo lo hace:</strong> Laravel genera una clase de trabajo con un método <code>handle()</code> que define la lógica que se ejecutará cuando el trabajo sea procesado.</p>
+    <p><strong>Ejemplo:</strong></p>
+    <pre><code>php artisan make:job ProcessDoctorData</code></pre>
+    <p><strong>Resultado esperado:</strong></p>
+    <pre><code>
+namespace App\Jobs;
+
+use App\Models\Doctor;
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
+
+class ProcessDoctorData implements ShouldQueue
+{
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
+    protected $doctor;
+
+    public function __construct(Doctor $doctor)
+    {
+        $this->doctor = $doctor;
+    }
+
+    public function handle()
+    {
+        // Lógica para procesar los datos del doctor
+    }
+}
+    </code></pre>
+
+    <h2>Comando: php artisan make:event</h2>
+    <p><strong>Qué hace:</strong> Este comando crea una clase de evento en la carpeta <code>app/Events</code>. Los eventos se utilizan para definir acciones que pueden ser escuchadas por otros componentes de la aplicación.</p>
+    <p><strong>Cómo lo hace:</strong> Laravel genera una clase de evento con propiedades que representan los datos asociados con el evento y métodos para manejar el evento.</p>
+    <p><strong>Ejemplo:</strong></p>
+    <pre><code>php artisan make:event DoctorCreated</code></pre>
+    <p><strong>Resultado esperado:</strong></p>
+    <pre><code>
+namespace App\Events;
+
+use App\Models\Doctor;
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Queue\SerializesModels;
+
+class DoctorCreated
+{
+    use Dispatchable, SerializesModels;
+
+    public $doctor;
+
+    public function __construct(Doctor $doctor)
+    {
+        $this->doctor = $doctor;
+    }
+}
+    </code></pre>
+
+    <h2>Comando: php artisan make:listener</h2>
+    <p><strong>Qué hace:</strong> Este comando crea una clase de listener en la carpeta <code>app/Listeners</code>. Los listeners responden a eventos y ejecutan lógica cuando un evento específico es disparado.</p>
+    <p><strong>Cómo lo hace:</strong> Laravel genera una clase de listener con un método <code>handle()</code> que define la lógica que se ejecutará cuando el evento sea disparado.</p>
+    <p><strong>Ejemplo:</strong></p>
+    <pre><code>php artisan make:listener SendDoctorNotification --event=DoctorCreated</code></pre>
+    <p><strong>Resultado esperado:</strong></p>
+    <pre><code>
+namespace App\Listeners;
+
+use App\Events\DoctorCreated;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Queue\InteractsWithQueue;
+
+class SendDoctorNotification implements ShouldQueue
+{
+    use InteractsWithQueue;
+
+    public function handle(DoctorCreated $event)
+    {
+        // Lógica para enviar notificación al doctor
+    }
+}
+    </code></pre>
+
+    <h2>Comando: php artisan migrate:status</h2>
+    <p><strong>Qué hace:</strong> Este comando muestra el estado actual de las migraciones.</p>
+    <p><strong>Cómo lo hace:</strong> Laravel consulta la tabla de migraciones y muestra cuáles migraciones han sido aplicadas y cuáles están pendientes.</p>
+    <p><strong>Ejemplo:</strong></p>
+    <pre><code>php artisan migrate:status</code></pre>
+    <p><strong>Resultado esperado:</strong></p>
+    <pre><code>
++------+--------------------------------------------------+-------+
+| Ran? | Migration                                        | Batch |
++------+--------------------------------------------------+-------+
+| Yes  | 2024_01_01_000000_create_doctors_table           | 1     |
+| No   | 2024_01_02_000000_add_specialty_to_doctors_table |       |
++------+--------------------------------------------------+-------+
+    </code></pre>
+
+    <h2>Comando: php artisan queue:work</h2>
+    <p><strong>Qué hace:</strong> Este comando inicia un worker de cola para procesar trabajos en segundo plano.</p>
+    <p><strong>Cómo lo hace:</strong> Laravel ejecuta los trabajos en la cola uno por uno, procesando cualquier tarea pendiente.</p>
+    <p><strong>Ejemplo:</strong></p>
+    <pre><code>php artisan queue:work</code></pre>
+    <p><strong>Resultado esperado:</strong></p>
+    <p>Los trabajos en la cola serán procesados en segundo plano.</p>
+
+    <h2>Comando: php artisan cache:table</h2>
+    <p><strong>Qué hace:</strong> Este comando crea una migración para la tabla de caché, la cual se utiliza cuando se usa la caché de base de datos.</p>
+    <p><strong>Cómo lo hace:</strong> Laravel genera una migración que crea la tabla <code>cache</</code> en la base de datos.</p>
+    <p><strong>Ejemplo:</strong></p>
+    <pre><code>php artisan cache:table</code></pre>
+    <p><strong>Resultado esperado:</strong></p>
+    <pre><code>
+namespace Database\Migrations;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateCacheTable extends Migration
+{
+    public function up()
+    {
+        Schema::create('cache', function (Blueprint $table) {
+            $table->string('key')->unique();
+            $table->text('value');
+            $table->integer('expiration');
+        });
+    }
+
+    public function down()
+    {
+        Schema::dropIfExists('cache');
+    }
+}
+    </code></pre>
+
+    <h2>Comando: php artisan optimize</h2>
+    <p><strong>Qué hace:</strong> Este comando optimiza la aplicación para un mejor rendimiento.</p>
+    <p><strong>Cómo lo hace:</strong> Laravel realiza varias optimizaciones, como la generación de caché de rutas, vistas y configuración.</p>
+    <p><strong>Ejemplo:</strong></p>
+    <pre><code>php artisan optimize</code></pre>
+    <p><strong>Resultado esperado:</strong></p>
+    <p>La aplicación será optimizada para un mejor rendimiento.</p>
+
+    <h2>Comando: php artisan serve</h2>
+    <p><strong>Qué hace:</strong> Este comando inicia un servidor de desarrollo PHP integrado para la aplicación.</p>
+    <p><strong>Cómo lo hace:</strong> Laravel inicia un servidor HTTP en el puerto 8000 (por defecto) para que puedas probar la aplicación en tu navegador.</p>
+    <p><strong>Ejemplo:</strong></p>
+    <pre><code>php artisan serve</code></pre>
+    <p><strong>Resultado esperado:</strong></p>
+    <p>El servidor de desarrollo se iniciará, permitiéndote acceder a la aplicación en <code>http://localhost:8000</code>.</p>
+           
+</section>
+
+<section id="make-model" class=" col-lg-8">
+    <h2>Comando: php artisan make:model</h2>
+    <p><strong>Qué hace:</strong> Este comando genera un archivo de modelo en la carpeta <code>app/Models</code>. Los modelos representan las tablas de la base de datos en tu aplicación y te permiten interactuar con ellas mediante el uso de Eloquent ORM (Object-Relational Mapping).</p>
+    <p><strong>Cómo lo hace:</strong> Laravel genera una clase de modelo que extiende de <code>Illuminate\Database\Eloquent\Model</code>. Esta clase puede ser usada para realizar consultas y manipular los datos de la tabla asociada.</p>
+    <p><strong>Ejemplo:</strong></p>
+    <pre><code>php artisan make:model Doctor</code></pre>
+    <p>Este comando crea un modelo llamado <code>Doctor</code>, el cual representará la tabla <code>doctors</code> en la base de datos.</p>
+    <p><strong>Resultado esperado:</strong></p>
+    <pre><code>
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Doctor extends Model
+{
+    use HasFactory;
+
+    // Aquí puedes definir relaciones, atributos, etc.
+}
+    </code></pre>
+
+</section>
+
+<section id="make-model-m" class=" col-lg-8">
+    
+    <h2>Comando: php artisan make:model -m</h2>
+    <p><strong>Qué hace:</strong> Este comando crea simultáneamente un modelo y una migración asociada en un solo paso.</p>
+    <p><strong>Cómo lo hace:</strong> Laravel genera un archivo de modelo en la carpeta <code>app/Models</code> y un archivo de migración en la carpeta <code>database/migrations</code>, vinculando ambos al nombre del modelo.</p>
+    <p><strong>Ejemplo:</strong></p>
+    <pre><code>php artisan make:model Doctor -m</code></pre>
+    <p>Este comando creará el modelo <code>Doctor</code> y una migración llamada <code>create_doctors_table</code>.</p>
+    <p><strong>Resultado esperado:</strong></p>
+    <ul>
+        <li>Un modelo <code>Doctor</code> para manejar los datos.</li>
+        <li>Una migración <code>create_doctors_table</code> para la estructura de la tabla.</li>
+    </ul>
+</section>
+
+<section id="make-migration-add-phone" class=" col-lg-8">
+    
+    <h2>Comando: php artisan make:migration add_phone_to_doctors_table --table=doctors</h2>
+    <p><strong>Qué hace:</strong> Este comando crea una migración para agregar una columna <code>phone</code> a la tabla <code>doctors</code>.</p>
+    <p><strong>Cómo lo hace:</strong> Laravel genera un archivo de migración con el nombre <code>add_phone_to_doctors_table</code> y el código inicial para modificar la tabla existente.</p>
+    <p><strong>Ejemplo:</strong></p>
+    <pre><code>php artisan make:migration add_phone_to_doctors_table --table=doctors</code></pre>
+    <p><strong>Resultado esperado:</strong></p>
+    <pre><code>
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class AddPhoneToDoctorsTable extends Migration
+{
+    public function up()
+    {
+        Schema::table('doctors', function (Blueprint $table) {
+            $table->string('phone')->nullable();
+        });
+    }
+
+    public function down()
+    {
+        Schema::table('doctors', function (Blueprint $table) {
+            $table->dropColumn('phone');
+        });
+    }
+}
+    </code></pre>
+    <p>Este código añade una columna <code>phone</code> a la tabla <code>doctors</code> y la elimina si se revierte la migración.</p>
+</section>
+
+
+<section id="migrate-rollback" class=" col-lg-8">
+    
+<h2>Comando: php artisan migrate:rollback</h2>
+<p><strong>Qué hace:</strong> Este comando revierte la última migración ejecutada.</p>
+<p><strong>Cómo lo hace:</strong> Laravel examina la tabla <code>migrations</code> y revierte la última migración ejecutando el método <code>down()</code> de la migración correspondiente.</p>
+<p><strong>Ejemplo:</strong></p>
+<pre><code>php artisan migrate:rollback</code></pre>
+<p><strong>Resultado esperado:</strong> Si acabas de añadir la columna <code>phone</code> a la tabla <code>doctors</code>, este comando la eliminará.</p>
+
+</section>
+
+<section id="migrate-path" class=" col-lg-8">
+    
+<h2>Comando: php artisan migrate --path</h2>
+<p><strong>Qué hace:</strong> Este comando permite ejecutar migraciones específicas ubicadas en un directorio concreto.</p>
+<p><strong>Cómo lo hace:</strong> Se le pasa la ruta relativa del archivo de migración o del directorio que contiene las migraciones que deseas ejecutar.</p>
+<p><strong>Ejemplo:</strong></p>
+<pre><code>php artisan migrate --path=/database/migrations/2024_08_26_000000_add_phone_to_doctors_table.php</code></pre>
+<p><strong>Resultado esperado:</strong> Solo la migración <code>add_phone_to_doctors_table</code> se ejecutará, y se agregará la columna <code>phone</code> a la tabla <code>doctors</code>.</p>
+
+</section>
+
+<section id="make-model-mc" class=" col-lg-8">
+    
+<h2>Comando: php artisan make:model -mc</h2>
+<p><strong>Qué hace:</strong> Este comando crea simultáneamente un modelo, una migración y un controlador asociados en un solo paso.</p>
+<p><strong>Cómo lo hace:</strong> Laravel genera un archivo de modelo en <code>app/Models</code>, un archivo de migración en <code>database/migrations</code>, y un archivo de controlador en <code>app/Http/Controllers</code>.</p>
+<p><strong>Ejemplo:</strong></p>
+<pre><code>php artisan make:model Doctor -mc</code></pre>
+<p><strong>Resultado esperado:</strong></p>
+<ul>
+    <li>Modelo <code>Doctor</code>.</li>
+    <li>Migración para la tabla <code>doctors</code>.</li>
+    <li>Controlador <code>DoctorController</code>.</li>
+</ul>
+
+</section>
+
+
+
+
+<section id="migrate-refresh" class=" col-lg-8">
+
+
+
+    <h2>Comando: php artisan migrate:fresh</h2>
+    <p><strong>Qué hace:</strong> Este comando elimina todas las tablas de la base de datos y vuelve a ejecutar todas las migraciones.</p>
+    <p><strong>Cómo lo hace:</strong> Laravel elimina todas las tablas y luego ejecuta todas las migraciones desde cero.</p>
+    <p><strong>Ejemplo:</strong></p>
+    <pre><code>php artisan migrate:fresh</code></pre>
+    <p><strong>Resultado esperado:</strong></p>
+    <p>La base de datos se reinicializa con las migraciones aplicadas.</p>
+</section>
+
+<section id="migrate-refresh-seed" class=" col-lg-8"></section>
+
+<section id="migrate-rollback-step" class=" col-lg-8">
+    
+
+    <h2>Comando: php artisan migrate:rollback</h2>
+    <p><strong>Qué hace:</strong> Este comando revierte la última migración ejecutada.</p>
+    <p><strong>Cómo lo hace:</strong> Laravel ejecuta el método <code>down()</code> en la última migración aplicada.</p>
+    <p><strong>Ejemplo:</strong></p>
+    <pre><code>php artisan migrate:rollback</code></pre>
+    <p><strong>Resultado esperado:</strong></p>
+    <p>La última migración se revertirá, eliminando o modificando los cambios realizados.</p>
+
+</section>
+
+
+
+
+
+
+<section id="make-seeder" class=" col-lg-8">
+    
+
+
+    <h2>Comando: php artisan db:seed</h2>
+    <p><strong>Qué hace:</strong> Este comando ejecuta los seeders de la base de datos, que son responsables de insertar datos de prueba o iniciales en la base de datos.</p>
+    <p><strong>Cómo lo hace:</strong> Laravel ejecuta el método <code>run()</code> en cada seeder registrado en el archivo <code>DatabaseSeeder.php</code>.</p>
+    <p><strong>Ejemplo:</strong></p>
+    <pre><code>php artisan db:seed</code></pre>
+    <p><strong>Resultado esperado:</strong> Los datos definidos en los seeders se insertan en las tablas correspondientes.</p>
+
+    
+    <h2>Comando: php artisan make:seeder</h2>
+    <p><strong>Qué hace:</strong> Este comando crea un archivo de seeder en la carpeta <code>database/seeders</code>. Los seeders son responsables de llenar las tablas de la base de datos con datos iniciales.</p>
+    <p><strong>Cómo lo hace:</strong> Laravel genera una clase de seeder con un método <code>run()</code>, que se debe llenar con los datos a insertar.</p>
+    <p><strong>Ejemplo:</strong></p>
+    <pre><code>php artisan make:seeder DoctorSeeder</code></pre>
+    <p><strong>Resultado esperado:</strong></p>
+    <pre><code>
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class DoctorSeeder extends Seeder
+{
+    public function run()
+    {
+        DB::table('doctors')->insert([
+            'name' => 'Dr. Smith',
+            'specialty' => 'Cardiology',
+        ]);
+    }
+}
+    </code></pre>
+
+    
+
+    <h2>Comando: php artisan make:factory</h2>
+    <p><strong>Qué hace:</strong> Este comando crea un archivo de factory en la carpeta <code>database/factories</code>. Las factories se utilizan para generar datos ficticios para las pruebas.</p>
+    <p><strong>Cómo lo hace:</strong> Laravel genera una clase de factory con métodos que definen cómo se crean los datos de prueba para un modelo específico.</p>
+    <p><strong>Ejemplo:</strong></p>
+    <pre><code>php artisan make:factory DoctorFactory --model=Doctor</code></pre>
+    <p><strong>Resultado esperado:</strong></p>
+    <pre><code>
+namespace Database\Factories;
+
+use App\Models\Doctor;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class DoctorFactory extends Factory
+{
+    protected $model = Doctor::class;
+
+    public function definition()
+    {
+        return [
+            'name' => $this->faker->name,
+            'specialty' => $this->faker->word,
+        ];
+    }
+}
+    </code></pre>
+</section>
+
+<section id="make-controller" class=" col-lg-8">
+    
+
+    <h2>Comando: php artisan make:controller</h2>
+    <p><strong>Qué hace:</strong> Este comando crea un archivo de controlador en la carpeta <code>app/Http/Controllers</code>. Los controladores manejan la lógica de negocio y sirven como intermediarios entre las solicitudes del usuario y las respuestas de la aplicación.</p>
+    <p><strong>Cómo lo hace:</strong> Laravel genera una clase de controlador que puede contener métodos para manejar diferentes acciones (por ejemplo, mostrar vistas, procesar formularios, etc.).</p>
+    <p><strong>Ejemplo:</strong></p>
+    <pre><code>php artisan make:controller DoctorController</code></pre>
+    <p><strong>Resultado esperado:</strong></p>
+    <pre><code>
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Doctor;
+
+class DoctorController extends Controller
+{
+    // Métodos para manejar las solicitudes
+}
+    </code></pre>
+
+    
+
+    <h2>Comando: php artisan route:list</h2>
+    <p><strong>Qué hace:</strong> Este comando muestra una lista de todas las rutas definidas en tu aplicación, junto con los métodos HTTP, nombres de rutas y controladores asociados.</p>
+    <p><strong>Cómo lo hace:</strong> Laravel consulta la tabla de rutas y muestra una tabla con la información de cada ruta definida.</p>
+    <p><strong>Ejemplo:</strong></p>
+    <pre><code>php artisan route:list</code></pre>
+    <p><strong>Resultado esperado:</strong></p>
+    <pre><code>
++--------+----------+--------------------+---------------------+------------------------------------------------------------------------+------------+
+| Method | URI      | Name               | Action              | Middleware                                                             | Domain     |
++--------+----------+--------------------+---------------------+------------------------------------------------------------------------+------------+
+| GET    | /doctors | doctors.index      | DoctorController@index | web                                                                    |            |
++--------+----------+--------------------+---------------------+------------------------------------------------------------------------+------------+
+    </code></pre>
+
+    
+
+
+    <h2>Comando: php artisan make:policy</h2>
+    <p><strong>Qué hace:</strong> Este comando crea una clase de policy en la carpeta <code>app/Policies</code>. Las policies se utilizan para autorizar el acceso a ciertas acciones basadas en permisos o roles.</p>
+    <p><strong>Cómo lo hace:</strong> Laravel genera una clase de policy que puede definir métodos para controlar el acceso a diferentes acciones en el modelo.</p>
+    <p><strong>Ejemplo:</strong></p>
+    <pre><code>php artisan make:policy DoctorPolicy --model=Doctor</code></pre>
+    <p><strong>Resultado esperado:</strong></p>
+    <pre><code>
+namespace App\Policies;
+
+use App\Models\Doctor;
+use App\Models\User;
+use Illuminate\Auth\Access\HandlesAuthorization;
+
+class DoctorPolicy
+{
+    use HandlesAuthorization;
+
+    public function view(User $user, Doctor $doctor)
+    {
+        return $user->id === $doctor->user_id;
+    }
+}
+    </code></pre>
+
+    <h2>Comando: php artisan make:middleware</h2>
+    <p><strong>Qué hace:</strong> Este comando crea un archivo de middleware en la carpeta <code>app/Http/Middleware</code>. El middleware se utiliza para filtrar solicitudes HTTP y realizar tareas como la autenticación, la autorización, etc.</p>
+    <p><strong>Cómo lo hace:</strong> Laravel genera una clase de middleware con un método <code>handle()</code> que define la lógica que se ejecutará antes o después de que la solicitud sea procesada por el controlador.</p>
+    <p><strong>Ejemplo:</strong></p>
+    <pre><code>php artisan make:middleware CheckRole</code></pre>
+    <p><strong>Resultado esperado:</strong></p>
+    <pre><code>
+namespace App\Http\Middleware;
+
+use Closure;
+use Illuminate\Http\Request;
+
+class CheckRole
+{
+    public function handle(Request $request, Closure $next, $role)
+    {
+        if ($request->user()->role !== $role) {
+            return redirect('/home');
+        }
+
+        return $next($request);
+    }
+}
+    </code></pre>
+
+    <h2>Comando: php artisan key:generate</h2>
+    <p><strong>Qué hace:</strong> Este comando genera una nueva clave de aplicación y la actualiza en el archivo <code>.env</code>. La clave es utilizada para encriptar datos y proteger las sesiones.</p>
+    <p><strong>Cómo lo hace:</strong> Laravel genera una cadena aleatoria y la asigna al valor de la clave <code>APP_KEY</code> en el archivo <code>.env</code>.</p>
+    <p><strong>Ejemplo:</strong></p>
+    <pre><code>php artisan key:generate</code></pre>
+    <p><strong>Resultado esperado:</strong></p>
+    <p>El archivo <code>.env</code> se actualizará con una nueva clave de aplicación.</p>
+
+    <h2>Comando: php artisan config:cache</h2>
+    <p><strong>Qué hace:</strong> Este comando crea un archivo de caché para la configuración de la aplicación.</p>
+    <p><strong>Cómo lo hace:</strong> Laravel combina todos los archivos de configuración en un único archivo de caché, mejorando el rendimiento de la aplicación.</p>
+    <p><strong>Ejemplo:</strong></p>
+    <pre><code>php artisan config:cache</code></pre>
+    <p><strong>Resultado esperado:</strong></p>
+    <p>La configuración de la aplicación se cargará más rápidamente a partir del archivo de caché.</p>
+
+    <h2>Comando: php artisan route:cache</h2>
+    <p><strong>Qué hace:</strong> Este comando crea un archivo de caché para las rutas de la aplicación.</p>
+    <p><strong>Cómo lo hace:</strong> Laravel combina todas las rutas en un solo archivo de caché, mejorando el rendimiento de las solicitudes de rutas.</p>
+    <p><strong>Ejemplo:</strong></p>
+    <pre><code>php artisan route:cache</code></pre>
+    <p><strong>Resultado esperado:</strong></p>
+    <p>Las rutas de la aplicación se cargarán más rápidamente a partir del archivo de caché.</p>
+
+    <h2>Comando: php artisan view:cache</h2>
+    <p><strong>Qué hace:</strong> Este comando compila todas las vistas Blade en archivos de caché.</p>
+    <p><strong>Cómo lo hace:</strong> Laravel procesa y almacena en caché todas las vistas Blade, lo que mejora el rendimiento de la aplicación al reducir el tiempo de renderizado de las vistas.</p>
+    <p><strong>Ejemplo:</strong></p>
+    <pre><code>php artisan view:cache</code></pre>
+    <p><strong>Resultado esperado:</strong></p>
+    <p>Las vistas Blade se procesarán y almacenarán en caché.</p>
+
+    <h2>Comando: php artisan cache:clear</h2>
+    <p><strong>Qué hace:</strong> Este comando borra toda la caché de la aplicación.</p>
+    <p><strong>Cómo lo hace:</strong> Laravel elimina todos los archivos de caché generados para la configuración, rutas, vistas, etc.</p>
+    <p><strong>Ejemplo:</strong></p>
+    <pre><code>php artisan cache:clear</code></pre>
+    <p><strong>Resultado esperado:</strong></p>
+    <p>La caché de la aplicación se eliminará, y la próxima solicitud generará nueva caché.</p>
+</section>
+
+<section id="make-migration" class=" col-lg-8">
+    <h2>Comando: php artisan make:migration</h2>
+    <p><strong>Qué hace:</strong> Este comando crea un archivo de migración en la carpeta <code>database/migrations</code>. Las migraciones permiten modificar la estructura de la base de datos.</p>
+    <p><strong>Cómo lo hace:</strong> Laravel genera una clase de migración con métodos <code>up()</code> y <code>down()</code> para definir los cambios y cómo revertirlos.</p>
+    <p><strong>Ejemplo:</strong></p>
+    <pre><code>php artisan make:migration add_specialty_to_doctors_table --table=doctors</code></pre>
+    <p><strong>Resultado esperado:</strong></p>
+    <pre><code>
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class AddSpecialtyToDoctorsTable extends Migration
+{
+    public function up()
+    {
+        Schema::table('doctors', function (Blueprint $table) {
+            $table->string('specialty')->nullable();
+        });
+    }
+
+    public function down()
+    {
+        Schema::table('doctors', function (Blueprint $table) {
+            $table->dropColumn('specialty');
+        });
+    }
+}
+    </code></pre>
+</section>
+
+<section id="make-policy" class=" col-lg-8">
+    <h2>Comando: php artisan make:policy</h2>
+    <p><strong>Qué hace:</strong> Este comando genera una política que permite definir autorizaciones personalizadas para diferentes acciones en un modelo.</p>
+    <p><strong>Cómo lo hace:</strong> Laravel crea una política con métodos predeterminados (view, create, update, delete, etc.), que puedes personalizar para controlar el acceso a recursos específicos.</p>
+    <p><strong>Ejemplo:</strong></p>
+    <pre><code>php artisan make:policy DoctorPolicy --model=Doctor</code></pre>
+    <p><strong>Resultado esperado:</strong></p>
+    <pre><code>
+protected $policies = [
+    Doctor::class => DoctorPolicy::class,
+];
+    </code></pre>
+    <p>Esto vincula la política DoctorPolicy al modelo Doctor.</p>
+    <p>Implementación en DoctorPolicy:</p>
+    <pre><code>
+public function update(User $user, Doctor $doctor)
+{
+    return $user->id === $doctor->usuario_id;
+}
+    </code></pre>
+    <p>Aquí, solo se permite actualizar un doctor si el usuario autenticado es el propietario del registro (usuario_id).</p>
+</section>
+
+<section id="authorize-controller" class=" col-lg-8">
+    <h2>Aplicar una Política en un Controlador</h2>
+    <p><strong>Qué hace:</strong> Aplica una política a un método de controlador para garantizar que el usuario tiene los permisos necesarios para realizar la acción.</p>
+    <p><strong>Cómo lo hace:</strong> Utiliza el método <code>authorize</code> en el controlador para verificar si el usuario tiene permiso según la política definida.</p>
+    <p><strong>Ejemplo:</strong></p>
+    <pre><code>
+public function update(Request $request, Doctor $doctor)
+{
+    $this->authorize('update', $doctor);
+
+    // Lógica para actualizar el doctor
+}
+    </code></pre>
+    <p><strong>Resultado esperado:</strong></p>
+    <p>Si el usuario no está autorizado, se lanzará una excepción y no se permitirá la actualización del doctor.</p>
+</section>
+
+<section id="middleware-group" class=" col-lg-8">
+    <h2>Aplicar un Middleware a un Grupo de Rutas</h2>
+    <p><strong>Qué hace:</strong> Aplica un middleware a todas las rutas de un grupo, protegiendo múltiples rutas con una sola declaración.</p>
+    <p><strong>Cómo lo hace:</strong> Usa <code>Route::middleware</code> para aplicar middleware a un grupo de rutas.</p>
+    <p><strong>Ejemplo:</strong></p>
+    <pre><code>
+Route::middleware(['auth', 'can:update,doctor'])->group(function () {
+    Route::get('/doctors/{doctor}/edit', [DoctorController::class, 'edit']);
+    Route::put('/doctors/{doctor}', [DoctorController::class, 'update']);
+});
+    </code></pre>
+    <p><strong>Resultado esperado:</strong></p>
+    <p>Solo los usuarios autenticados con los permisos necesarios pueden acceder y editar la información del doctor.</p>
+</section>
+
+<section id="middleware-method"class=" col-lg-8">
+    <h2>Aplicar un Middleware a un Método Específico en el Controlador</h2>
+    <p><strong>Qué hace:</strong> Asigna un middleware a un método específico dentro del controlador.</p>
+    <p><strong>Cómo lo hace:</strong> Usa el método <code>middleware</code> en el constructor del controlador.</p>
+    <p><strong>Ejemplo:</strong></p>
+    <pre><code>
+public function __construct()
+{
+    $this->middleware('can:update,doctor')->only('update');
+}
+
+public function update(Request $request, Doctor $doctor)
+{
+    // Lógica para actualizar el doctor
+}
+    </code></pre>
+    <p><strong>Resultado esperado:</strong></p>
+    <p>La autorización se verifica solo cuando se intenta actualizar un doctor.</p>
+</section>
+
+<section id="make-middleware" class=" col-lg-8">
+    <h2>Generar un Middleware Personalizado</h2>
+    <p><strong>Qué hace:</strong> Crea un middleware personalizado que se puede usar para ejecutar lógica antes de que se procese una solicitud.</p>
+    <p><strong>Cómo lo hace:</strong> Laravel genera una clase middleware que puede manejar la solicitud antes de pasarla al controlador.</p>
+    <p><strong>Ejemplo:</strong></p>
+    <pre><code>php artisan make:middleware CheckDoctorStatus</code></pre>
+    <p>Implementación del Middleware:</p>
+    <pre><code>
+public function handle($request, Closure $next)
+{
+    if ($request->doctor->status !== 'active') {
+        return redirect('doctors')->with('error', 'Doctor is not active.');
+    }
+
+    return $next($request);
+}
+    </code></pre>
+    <p><strong>Resultado esperado:</strong></p>
+    <p>Antes de procesar la solicitud, el middleware verifica el estado del doctor y, si no es activo, redirige al usuario con un mensaje de error.</p>
+</section>
+
+<section id="assign-middleware" class=" col-lg-8">
+    <h2>Asignar Middleware Personalizado a Rutas</h2>
+    <p><strong>Qué hace:</strong> Permite aplicar un middleware personalizado a rutas específicas o grupos de rutas.</p>
+    <p><strong>Cómo lo hace:</strong> Registrar el middleware en <code>app/Http/Kernel.php</code> y luego aplicarlo en <code>web.php</code>.</p>
+    <p><strong>Ejemplo:</strong></p>
+    <pre><code>
+// Registrar en Kernel.php
+protected $routeMiddleware = [
+    'check.status' => \App\Http\Middleware\CheckDoctorStatus::class,
+];
+
+// Aplicar en web.php
+Route::get('/doctors/{doctor}', [DoctorController::class, 'show'])->middleware('check.status');
+    </code></pre>
+    <p><strong>Resultado esperado:</strong></p>
+    <p>La información del doctor solo se mostrará si el middleware CheckDoctorStatus permite que la solicitud avance.</p>
+</section>
+
+<section id="authorize-resource" class=" col-lg-8">
+    <h2>Usar Políticas Automáticamente en Controladores de Recursos</h2>
+    <p><strong>Qué hace:</strong> Aplica automáticamente una política a todos los métodos de un controlador de recursos.</p>
+    <p><strong>Cómo lo hace:</strong> En el controlador de recursos, utiliza la política para manejar el acceso a los métodos.</p>
+    <p><strong>Ejemplo:</strong></p>
+    <pre><code>
+public function __construct()
+{
+    $this->authorizeResource(Doctor::class, 'doctor');
+}
+    </code></pre>
+    <p><strong>Resultado esperado:</strong></p>
+    <p>Las políticas se aplican automáticamente a todas las acciones del controlador de recursos según las reglas definidas en la política.</p>
+</section>
+
+<section id="conditional-policy" class=" col-lg-8">
+    <h2>Ejecutar Políticas Condicionales</h2>
+    <p><strong>Qué hace:</strong> Permite aplicar lógica condicional a las políticas para autorizar acciones específicas basadas en la condición.</p>
+    <p><strong>Cómo lo hace:</strong> Usa el método <code>authorize</code> con condiciones específicas en el controlador.</p>
+    <p><strong>Ejemplo:</strong></p>
+    <pre><code>
+public function destroy(Doctor $doctor)
+{
+    if ($doctor->status === 'inactive') {
+        $this->authorize('forceDelete', $doctor);
+    } else {
+        $this->authorize('delete', $doctor);
+    }
+
+    // Lógica para eliminar el doctor
+}
+    </code></pre>
+    <p><strong>Resultado esperado:</strong></p>
+    <p>Dependiendo del estado del doctor, se aplica la política de eliminación correspondiente.</p>
+</section>
+
+<section id="global-middleware" class=" col-lg-8">
+    <h2>Aplicar Middleware Globalmente en la Aplicación</h2>
+    <p><strong>Qué hace:</strong> Aplica un middleware a todas las solicitudes entrantes a la aplicación.</p>
+    <p><strong>Cómo lo hace:</strong> Registra el middleware en <code>app/Http/Kernel.php</code> en la propiedad <code>$middleware</code>.</p>
+    <p><strong>Ejemplo:</strong></p>
+    <pre><code>
+protected $middleware = [
+    \App\Http\Middleware\CheckForMaintenanceMode::class,
+    \App\Http\Middleware\TrustProxies::class,
+    \App\Http\Middleware\PreventRequestsDuringMaintenance::class,
+];
+    </code></pre>
+    <p><strong>Resultado esperado:</strong></p>
+    <p>El middleware se ejecuta para cada solicitud, asegurando que la aplicación esté protegida y funcionando correctamente.</p>
+</section>
+
+<section id="make-factory" class=" col-lg-8">
+    <h2>Comando: php artisan make:factory</h2>
+    <p><strong>Qué hace:</strong> Genera una nueva clase de fábrica para un modelo, facilitando la creación de datos de prueba.</p>
+    <p><strong>Cómo lo hace:</strong> Laravel crea una clase en <code>database/factories</code> con métodos para definir los atributos de los modelos.</p>
+    <p><strong>Ejemplo:</strong></p>
+    <pre><code>php artisan make:factory DoctorFactory --model=Doctor</code></pre>
+    <p><strong>Resultado esperado:</strong></p>
+    <pre><code>
+use Faker\Generator as Faker;
+
+$factory->define(App\Models\Doctor::class, function (Faker $faker) {
+    return [
+        'name' => $faker->name,
+        'specialty' => $faker->word,
+    ];
+});
+    </code></pre>
+    <p>Esto genera una fábrica que crea doctores con un nombre y especialidad falsos.</p>
+</section>
+
+<section id="make-seeder" class=" col-lg-8">
+    <h2>Comando: php artisan make:seeder</h2>
+    <p><strong>Qué hace:</strong> Crea una nueva clase de sembrador para insertar datos de prueba en la base de datos.</p>
+    <p><strong>Cómo lo hace:</strong> Laravel genera una clase en <code>database/seeders</code> donde puedes definir la lógica para insertar datos en las tablas.</p>
+    <p><strong>Ejemplo:</strong></p>
+    <pre><code>php artisan make:seeder DoctorsTableSeeder</code></pre>
+    <p><strong>Resultado esperado:</strong></p>
+    <pre><code>
+public function run()
+{
+    \App\Models\Doctor::factory(10)->create();
+}
+    </code></pre>
+    <p>Este sembrador utiliza la fábrica para crear 10 doctores con datos ficticios.</p>
+</section>
+
+
+
+
+</div>
+</div>
+</div>
+</div>
+
+
+   
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+
+        // Detectar si el usuario ya tiene una preferencia en localStorage
+        const userTheme = localStorage.getItem('theme');
+        const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+
+        const currentTheme = userTheme || systemTheme;
+
+        // Aplicar el tema al cargar la página
+        if (currentTheme === 'dark') {
+            body.classList.add('dark-mode');
+            themeToggle.classList.replace('fa-sun', 'fa-moon');
+        } else {
+            body.classList.add('light-mode');
+            themeToggle.classList.replace('fa-moon', 'fa-sun');
+        }
+
+        // Cambiar tema al presionar el ícono
+        themeToggle.addEventListener('click', function() {
+            if (body.classList.contains('light-mode')) {
+                // Cambiar a modo oscuro
+                body.classList.replace('light-mode', 'dark-mode');
+                themeToggle.classList.replace('fa-sun', 'fa-moon');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                // Cambiar a modo claro
+                body.classList.replace('dark-mode', 'light-mode');
+                themeToggle.classList.replace('fa-moon', 'fa-sun');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+    });
+</script>
+</body>
+</html>

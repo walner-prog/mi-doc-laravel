@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>migraciones y modelos </title>
+   
+</head>
+<body>
+    <style>
+         pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+    
+    <div class="container mt-1">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+            <a class="navbar-brand font-weight-bold text-dark" href="/index.html">Doc Laravel</a>
+            <button class="navbar-toggler text-dark" type="button" data-toggle="collapse" data-target="#navbar1" aria-controls="navbar1" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbar1">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link text-dark" href="/index.html">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="/comandos-factory.html">Migraciones y Modelos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="/migraciones-modelos.html">Controladores y Modelos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="/laravel-sql.html">Tutoriales de Programación</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="/formularios-valicaciones.html">Formularios en laravel </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="d-flex justify-content-end">
+                <i id="themeToggle" class="fas fa-sun theme-icon" style="font-size: 24px;"></i>
+            </div>
+        
+        </nav>
+
+
+          <div class="row">
+
+            <div class="col-lg-12">
+                <h1>Directivas de Blade en Laravel</h1>
+
+<p>Laravel Blade es un motor de plantillas simple pero potente que facilita la creación de vistas dinámicas en Laravel. Aquí te dejo algunas de las directivas más útiles y comunes que puedes usar:</p>
+
+<h2>@{{...}}: Escapar HTML</h2>
+<p>La directiva <code>@{{...}}</code> permite mostrar contenido de variables en la vista mientras se escapa el HTML para prevenir inyecciones de código.</p>
+<pre>
+&#64;{{ $nombre }}
+</pre>
+
+<h2>@verbatim: Evitar la Interpretación de Blade</h2>
+<p>La directiva <code>@verbatim</code> te permite incluir código HTML y Blade sin que se interprete. Es útil cuando trabajas con plantillas de JavaScript.</p>
+<pre>
+&#64;verbatim
+    <div id="app">
+        &#64;{{ message }}
+    </div>
+&#64;endverbatim
+</pre>
+
+<h2>@if, @elseif, @else: Condicionales</h2>
+<p>Las directivas <code>@if</code>, <code>@elseif</code> y <code>@else</code> permiten ejecutar código condicional dentro de las vistas.</p>
+<pre>
+&#64;if($usuario->esAdmin())
+    <p>Bienvenido, administrador.</p>
+&#64;elseif($usuario->esMiembro())
+    <p>Bienvenido, miembro.</p>
+&#64;else
+    <p>Bienvenido, visitante.</p>
+&#64;endif
+</pre>
+
+<h2>@isset, @empty: Verificación de Variables</h2>
+<p>La directiva <code>@isset</code> verifica si una variable está definida y no es <code>null</code>. La directiva <code>@empty</code> verifica si una variable está vacía.</p>
+<pre>
+&#64;isset($nombre)
+    <p>El nombre es: &#64;{{ $nombre }}</p>
+&#64;endisset
+
+&#64;empty($nombre)
+    <p>No se proporcionó nombre.</p>
+&#64;endempty
+</pre>
+
+<h2>@for, @foreach, @forelse: Bucles</h2>
+<p>Estas directivas permiten iterar sobre datos en la vista. <code>@foreach</code> es para colecciones, <code>@for</code> para bucles tradicionales y <code>@forelse</code> para manejar listas vacías.</p>
+<pre>
+&#64;foreach($usuarios as $usuario)
+    <p>Usuario: &#64;{{ $usuario->nombre }}</p>
+&#64;endforeach
+
+&#64;for($i = 0; $i < 10; $i++)
+    <p>Número: &#64;{{ $i }}</p>
+&#64;endfor
+
+&#64;forelse($productos as $producto)
+    <p>Producto: &#64;{{ $producto->nombre }}</p>
+&#64;empty
+    <p>No hay productos disponibles.</p>
+&#64;endforelse
+</pre>
+
+<h2>@include, @component: Incluir Vistas y Componentes</h2>
+<p>La directiva <code>@include</code> permite incluir vistas parciales. <code>@component</code> permite usar componentes reutilizables.</p>
+<pre>
+&#64;include('partials.header')
+
+&#64;component('components.alert')
+    &#64;slot('title')
+        Título de la Alerta
+    &#64;endslot
+    Este es el mensaje de la alerta.
+&#64;endcomponent
+</pre>
+
+<h2>@section, @yield: Secciones de Contenido</h2>
+<p>Las directivas <code>@section</code> y <code>@yield</code> son usadas en plantillas maestras para definir y mostrar secciones de contenido.</p>
+<pre>
+&#64;section('content')
+    <p>Este es el contenido principal.</p>
+&#64;endsection
+
+&#64;yield('content')
+</pre>
+
+<h2>@extends, @parent: Herencia de Plantillas</h2>
+<p>La directiva <code>@extends</code> se usa para heredar de una plantilla maestra. La directiva <code>@parent</code> permite incluir contenido adicional en una sección de la plantilla padre.</p>
+<pre>
+&#64;extends('layouts.master')
+
+&#64;section('sidebar')
+    &#64;parent
+    <p>Este es el contenido adicional de la barra lateral.</p>
+&#64;endsection
+</pre>
+
+<h2>@auth, @guest: Autenticación</h2>
+<p>Las directivas <code>@auth</code> y <code>@guest</code> permiten mostrar contenido basado en si el usuario está autenticado o no.</p>
+<pre>
+&#64;auth
+    <p>Bienvenido, &#64;{{ auth()->user()->nombre }}.</p>
+&#64;endauth
+
+&#64;guest
+    <p>Por favor, inicia sesión para continuar.</p>
+&#64;endguest
+</pre>
+
+<h2>@csrf: Protección contra CSRF</h2>
+<p>La directiva <code>@csrf</code> genera un token CSRF para proteger formularios contra ataques de falsificación de solicitudes.</p>
+<pre>
+<form method="POST" action="/login">
+    &#64;csrf
+    <input type="text" name="email">
+    <input type="password" name="password">
+    <button type="submit">Iniciar Sesión</button>
+</form>
+</pre>
+            </div>
+
+            <div class="col-lg-10 p-4">
+                <h6>
+                    Configuración de un Sistema Hospitalario Eficaz
+                </h6>
+                <p>
+                    Configurar un sistema hospitalario eficaz implica establecer varios módulos y características clave para garantizar que el sistema sea completo, seguro y funcional. A continuación, se presentan algunas configuraciones esenciales que debe tener un sistema hospitalario:
+                </p>
+                
+                <h6>1. Gestión de Pacientes</h6>
+                <ul>
+                    <li>Registro de Pacientes: Formulario de admisión con campos para información personal, historial médico, contacto de emergencia, seguros, etc.</li>
+                    <li>Historia Clínica Electrónica (HCE): Almacenamiento y acceso a las historias clínicas de los pacientes.</li>
+                    <li>Admisión y Egreso: Gestión de ingresos hospitalarios, traslados y altas.</li>
+                    <li>Agendamiento y Citas: Programación de citas médicas, recordatorios, y gestión de calendarios para médicos.</li>
+                    <li>Triage: Clasificación y evaluación de la gravedad de los pacientes en la sala de emergencias.</li>
+                </ul>
+            
+                <h6>2. Gestión de Doctores y Personal Médico</h6>
+                <ul>
+                    <li>Perfil del Doctor: Información sobre especialidades, horarios, contacto, historial profesional, etc.</li>
+                    <li>Asignación de Roles: Asignación de permisos y roles para acceder a diferentes partes del sistema.</li>
+                    <li>Gestión de Turnos: Planificación y seguimiento de los turnos del personal médico y de enfermería.</li>
+                </ul>
+            
+                <h6>3. Gestión de Departamentos y Especialidades</h6>
+                <ul>
+                    <li>Configuración de Departamentos: Crear y gestionar departamentos hospitalarios como cardiología, pediatría, cirugía, etc.</li>
+                    <li>Asignación de Personal: Asociar médicos y enfermeros a sus respectivas especialidades y departamentos.</li>
+                </ul>
+            
+                <h6>4. Farmacia y Medicamentos</h6>
+                <ul>
+                    <li>Inventario de Medicamentos: Control de stock, caducidad, y reordenamiento de suministros.</li>
+                    <li>Prescripciones Médicas: Generación y gestión de recetas médicas electrónicas.</li>
+                </ul>
+            
+                <h6>5. Facturación y Finanzas</h6>
+                <ul>
+                    <li>Gestión de Pagos: Facturación a pacientes y aseguradoras, gestión de pagos y cobros.</li>
+                    <li>Reportes Financieros: Generación de reportes para administración, auditorías y análisis financiero.</li>
+                </ul>
+            
+                <h6>6. Gestión de Laboratorios y Resultados</h6>
+                <ul>
+                    <li>Órdenes de Laboratorio: Solicitud y seguimiento de pruebas diagnósticas.</li>
+                    <li>Resultados de Pruebas: Almacenamiento y visualización de resultados de laboratorio.</li>
+                </ul>
+            
+                <h6>7. Sistema de Emergencias</h6>
+                <ul>
+                    <li>Registro de Emergencias: Gestión de la entrada de pacientes en situaciones de emergencia.</li>
+                    <li>Seguimiento en Tiempo Real: Monitorización del estado de los pacientes en áreas críticas.</li>
+                </ul>
+            
+                <h6>8. Seguridad y Cumplimiento</h6>
+                <ul>
+                    <li>Autenticación y Autorización: Sistemas de inicio de sesión seguro y control de acceso basado en roles (RBAC).</li>
+                    <li>Cumplimiento de Normativas: Asegurarse de que el sistema cumpla con regulaciones de privacidad y seguridad de la salud como HIPAA (en EE.UU.) o GDPR (en Europa).</li>
+                </ul>
+            
+                <h6>9. Interoperabilidad</h6>
+                <ul>
+                    <li>Integración con Otros Sistemas: Capacidad de integrarse con sistemas externos como seguros, laboratorios externos, y otros hospitales.</li>
+                    <li>HL7/FHIR Compliance: Asegurar la compatibilidad con estándares de intercambio de datos en salud.</li>
+                </ul>
+            
+                <h6>10. Reportes y Análisis</h6>
+                <ul>
+                    <li>Reportes Médicos y Administrativos: Generación de informes sobre el estado de los pacientes, rendimiento del hospital, etc.</li>
+                    <li>Análisis de Datos: Herramientas para analizar grandes volúmenes de datos, tendencias en salud.</li>
+                </ul>
+            </div>
+            <hr>
+
+
+            <div class="row">
+                <div class="col-lg-10 p-4">
+                    <h3>
+                        Aquí tienes 20 funciones útiles en MySQL que podrías utilizar al trabajar con una base de datos hospitalaria que incluye tablas como doctores, pacientes, y especialidades:
+                    </h3>
+                    <br>
+                    <ol>
+                        <li>
+                            <strong>CREATE DATABASE hospital;</strong><br>
+                            Crea la base de datos llamada <em>hospital</em>.
+                        </li>
+                        <li>
+                            <strong>CREATE TABLE doctores (id INT AUTO_INCREMENT PRIMARY KEY, nombre VARCHAR(255), especialidad_id INT, ...);</strong><br>
+                            Crea la tabla <em>doctores</em> con un campo clave primaria <em>id</em>, un campo <em>nombre</em>, y una referencia a <em>especialidad_id</em>.
+                        </li>
+                        <li>
+                            <strong>CREATE TABLE pacientes (id INT AUTO_INCREMENT PRIMARY KEY, nombre VARCHAR(255), cedula VARCHAR(20), ...);</strong><br>
+                            Crea la tabla <em>pacientes</em> con un campo clave primaria <em>id</em>, <em>nombre</em>, y un campo <em>cedula</em> para la identificación.
+                        </li>
+                        <li>
+                            <strong>CREATE TABLE especialidades (id INT AUTO_INCREMENT PRIMARY KEY, nombre VARCHAR(255), descripcion TEXT, ...);</strong><br>
+                            Crea la tabla <em>especialidades</em> con un campo clave primaria <em>id</em>, <em>nombre</em>, y <em>descripcion</em>.
+                        </li>
+                        <li>
+                            <strong>INSERT INTO doctores (nombre, especialidad_id) VALUES ('Dr. Juan Pérez', 1);</strong><br>
+                            Inserta un nuevo doctor con el nombre "Dr. Juan Pérez" y la especialidad con ID 1.
+                        </li>
+                        <li>
+                            <strong>INSERT INTO pacientes (nombre, cedula) VALUES ('Ana García', '1234567890');</strong><br>
+                            Inserta un nuevo paciente llamado "Ana García" con la cédula "1234567890".
+                        </li>
+                        <li>
+                            <strong>INSERT INTO especialidades (nombre, descripcion) VALUES ('Cardiología', 'Especialidad en enfermedades del corazón');</strong><br>
+                            Inserta una nueva especialidad en <em>especialidades</em>.
+                        </li>
+                        <li>
+                            <strong>SELECT * FROM doctores;</strong><br>
+                            Selecciona y muestra todos los registros de la tabla <em>doctores</em>.
+                        </li>
+                        <li>
+                            <strong>SELECT * FROM pacientes WHERE cedula = '1234567890';</strong><br>
+                            Selecciona todos los pacientes cuya cédula sea "1234567890".
+                        </li>
+                        <li>
+                            <strong>UPDATE doctores SET nombre = 'Dr. Pedro Gómez' WHERE id = 1;</strong><br>
+                            Actualiza el nombre del doctor con ID 1 a "Dr. Pedro Gómez".
+                        </li>
+                        <li>
+                            <strong>DELETE FROM pacientes WHERE id = 2;</strong><br>
+                            Elimina el paciente con ID 2.
+                        </li>
+                        <li>
+                            <strong>ALTER TABLE doctores ADD COLUMN telefono VARCHAR(20);</strong><br>
+                            Añade una nueva columna <em>telefono</em> a la tabla <em>doctores</em>.
+                        </li>
+                        <li>
+                            <strong>CREATE INDEX idx_nombre_doctores ON doctores(nombre);</strong><br>
+                            Crea un índice en la columna <em>nombre</em> de la tabla <em>doctores</em> para optimizar las búsquedas.
+                        </li>
+                        <li>
+                            <strong>JOIN:</strong><br>
+                            <code>SELECT doctores.nombre AS doctor, especialidades.nombre AS especialidad FROM doctores JOIN especialidades ON doctores.especialidad_id = especialidades.id;</code><br>
+                            Realiza una consulta que une las tablas <em>doctores</em> y <em>especialidades</em> mostrando el nombre del doctor y su especialidad.
+                        </li>
+                        <li>
+                            <strong>GROUP BY:</strong><br>
+                            <code>SELECT especialidades.nombre, COUNT(doctores.id) AS total_doctores FROM doctores JOIN especialidades ON doctores.especialidad_id = especialidades.id GROUP BY especialidades.nombre;</code><br>
+                            Agrupa doctores por especialidad y cuenta cuántos doctores hay en cada especialidad.
+                        </li>
+                        <li>
+                            <strong>HAVING:</strong><br>
+                            <code>SELECT especialidades.nombre, COUNT(doctores.id) AS total_doctores FROM doctores JOIN especialidades ON doctores.especialidad_id = especialidades.id GROUP BY especialidades.nombre HAVING total_doctores > 5;</code><br>
+                            Similar al GROUP BY, pero solo muestra especialidades con más de 5 doctores.
+                        </li>
+                        <li>
+                            <strong>CREATE VIEW doctores_especialidades AS:</strong><br>
+                            <code>CREATE VIEW doctores_especialidades AS SELECT doctores.nombre AS doctor, especialidades.nombre AS especialidad FROM doctores JOIN especialidades ON doctores.especialidad_id = especialidades.id;</code><br>
+                            Crea una vista para simplificar futuras consultas.
+                        </li>
+                        <li>
+                            <strong>TRIGGER:</strong><br>
+                            <code>CREATE TRIGGER antes_insertar_doctor BEFORE INSERT ON doctores FOR EACH ROW BEGIN SET NEW.nombre = UPPER(NEW.nombre); END;</code><br>
+                            Crea un disparador que convierte el nombre del doctor a mayúsculas antes de insertar.
+                        </li>
+                        <li>
+                            <strong>FOREIGN KEY:</strong><br>
+                            <code>ALTER TABLE doctores ADD CONSTRAINT fk_especialidad FOREIGN KEY (especialidad_id) REFERENCES especialidades(id);</code><br>
+                            Define una clave foránea en la tabla <em>doctores</em> que referencia a la tabla <em>especialidades</em>.
+                        </li>
+                        <li>
+                            <strong>BACKUP DATABASE (mediante mysqldump en línea de comandos):</strong><br>
+                            <code>mysqldump -u usuario -p hospital > hospital_backup.sql;</code><br>
+                            Realiza una copia de seguridad de la base de datos <em>hospital</em>.
+                        </li>
+                    </ol>
+                    <p>
+                        Estas funciones cubren desde la creación y manipulación de tablas hasta la optimización de consultas y la creación de vistas y triggers, proporcionando una base sólida para gestionar la base de datos de un hospital.
+                    </p>
+                </div>
+            </div>
+
+            <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
+                Tooltip
+              </button>
+              
+            
+            
+          </div>
+
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+
+        // Detectar si el usuario ya tiene una preferencia en localStorage
+        const userTheme = localStorage.getItem('theme');
+        const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+
+        const currentTheme = userTheme || systemTheme;
+
+        // Aplicar el tema al cargar la página
+        if (currentTheme === 'dark') {
+            body.classList.add('dark-mode');
+            themeToggle.classList.replace('fa-sun', 'fa-moon');
+        } else {
+            body.classList.add('light-mode');
+            themeToggle.classList.replace('fa-moon', 'fa-sun');
+        }
+
+        // Cambiar tema al presionar el ícono
+        themeToggle.addEventListener('click', function() {
+            if (body.classList.contains('light-mode')) {
+                // Cambiar a modo oscuro
+                body.classList.replace('light-mode', 'dark-mode');
+                themeToggle.classList.replace('fa-sun', 'fa-moon');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                // Cambiar a modo claro
+                body.classList.replace('dark-mode', 'light-mode');
+                themeToggle.classList.replace('fa-moon', 'fa-sun');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+    });
+</script>
+</body>
+</html>

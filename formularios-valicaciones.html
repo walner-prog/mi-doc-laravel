@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navbar Example</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0-beta3/css/all.min.css">
+</head>
+<style>
+     /* Estilos para resaltar el código */
+     pre, code {
+            background-color: #f5f5f5; /* Color de fondo del código */
+            border: 1px solid #ddd;    /* Borde alrededor del código */
+            padding: 10px;             /* Espaciado interno */
+            display: block;
+            color: #334ed6;            /* Color del texto del código */
+        }
+        section {
+            margin-bottom: 20px;
+        }
+        /* Puedes personalizar los estilos para tu web */
+</style>
+<body>
+    
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <a class="navbar-brand font-weight-bold text-dark" href="/index.html">Doc Laravel</a>
+    <button class="navbar-toggler text-dark" type="button" data-toggle="collapse" data-target="#navbar1" aria-controls="navbar1" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+   
+    <div class="collapse navbar-collapse" id="navbar1">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link text-dark" href="/index.html">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" href="/comandos-factory.html">Migraciones y Modelos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" href="/migraciones-modelos.html">Controladores y Modelos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" href="/laravel-sql.html">Tutoriales de Programación</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" href="/formularios-valicaciones.html">Formularios en laravel </a>
+            </li>
+        </ul>
+    </div>
+    <div class="d-flex justify-content-end"></div>
+        <i id="themeToggle" class="fas fa-sun theme-icon" style="font-size: 24px;"></i>
+        </div>
+</nav>
+
+<div class="row mt-5">
+    <div class="col-lg-2"></div>
+    <div class="col-lg-10">
+        <section id="form-validation-laravel" class="col-lg-8">
+            <h2>Formularios y Validaciones en Laravel</h2>
+        
+            <p><strong>Qué son:</strong> En Laravel, los formularios son componentes HTML que permiten a los usuarios ingresar datos que serán procesados por el servidor. Las validaciones son las reglas que aseguran que los datos enviados cumplan ciertos requisitos antes de ser procesados.</p>
+        
+            <p><strong>Cómo funcionan:</strong> Laravel proporciona una forma sencilla de manejar formularios y validaciones a través de clases de <code>Request</code> o directamente en los controladores usando el método <code>validate()</code>. Estas reglas se pueden definir de manera rápida y flexible.</p>
+        
+            <p><strong>Validación Básica:</strong></p>
+            <pre><code>
+            public function store(Request $request)
+            {
+                $validatedData = $request->validate([
+                    'nombre' => 'required|max:255',
+                    'email' => 'required|email',
+                    'password' => 'required|min:8',
+                ]);
+            }
+            </code></pre>
+            <p>En este ejemplo, Laravel valida que el campo <code>nombre</code> sea obligatorio y no exceda los 255 caracteres, que el <code>email</code> sea un formato válido, y que la <code>password</code> tenga un mínimo de 8 caracteres.</p>
+        
+            <p><strong>Mensajes de Error Personalizados:</strong></p>
+            <pre><code>
+            public function store(Request $request)
+            {
+                $messages = [
+                    'nombre.required' => 'El nombre es obligatorio.',
+                    'email.required' => 'El email es obligatorio.',
+                ];
+        
+                $validatedData = $request->validate([
+                    'nombre' => 'required|max:255',
+                    'email' => 'required|email',
+                ], $messages);
+            }
+            </code></pre>
+            <p>Aquí, estamos personalizando los mensajes de error que se mostrarán si las reglas de validación no se cumplen.</p>
+        
+            <p><strong>Resultado esperado:</strong></p>
+            <pre><code>
+            // Si el nombre está vacío, se mostrará:
+            "El nombre es obligatorio."
+            
+            // Si el email no es válido, se mostrará:
+            "El email es obligatorio."
+            </code></pre>
+        </section>
+
+        <section id="form-creation-laravel" class="col-lg-8">
+            <h2>Creación de Formularios en Laravel</h2>
+        
+            <p><strong>Qué es:</strong> Los formularios en Laravel permiten a los usuarios enviar datos al servidor, usualmente con una solicitud <code>POST</code>. Laravel proporciona diversas herramientas, como <code>Form</code> helpers y <code>Blade</code>, para generar formularios de manera sencilla.</p>
+        
+            <p><strong>Cómo se hace:</strong> Puedes crear formularios directamente con HTML o usando el paquete <code>Laravel Collective</code>, que facilita la creación de formularios con Blade.</p>
+        
+            <p><strong>Ejemplo de formulario básico:</strong></p>
+            <pre><code>
+            <form action="{{ route('posts.store') }}" method="POST">
+                @csrf
+                <label for="title">Título</label>
+                <input type="text" name="title" id="title" class="form-control" required>
+        
+                <label for="content">Contenido</label>
+                <textarea name="content" id="content" class="form-control" required></textarea>
+        
+                <button type="submit" class="btn btn-primary">Enviar</button>
+            </form>
+            </code></pre>
+            <p>Este formulario crea dos campos (título y contenido) y un botón de envío. El token <code>@csrf</code> es obligatorio para proteger el formulario de ataques CSRF.</p>
+        </section>
+
+        <section id="advanced-validation-laravel" class="col-lg-8">
+            <h2>Validaciones Avanzadas en Laravel</h2>
+        
+            <p><strong>Qué son:</strong> Las validaciones avanzadas permiten aplicar reglas más complejas, como validaciones condicionales, validaciones personalizadas, y validación de arreglos.</p>
+        
+            <p><strong>Validación de Arreglos:</strong></p>
+            <pre><code>
+            public function store(Request $request)
+            {
+                $validatedData = $request->validate([
+                    'productos.*.nombre' => 'required|string',
+                    'productos.*.cantidad' => 'required|integer|min:1',
+                ]);
+            }
+            </code></pre>
+            <p>Este ejemplo valida un arreglo de productos, asegurándose de que cada producto tenga un nombre y una cantidad mínima de 1.</p>
+        
+            <p><strong>Validación Condicional:</strong></p>
+            <pre><code>
+            public function store(Request $request)
+            {
+                $validatedData = $request->validate([
+                    'nombre' => 'required|string',
+                    'email' => ['required', 'email', function ($attribute, $value, $fail) {
+                        if ($value == 'test@example.com') {
+                            $fail($attribute.' no es permitido.');
+                        }
+                    }],
+                ]);
+            }
+            </code></pre>
+            <p>Aquí se usa una validación condicional que rechaza el email <code>test@example.com</code>.</p>
+        </section>
+
+        <section id="crud-operations-laravel" class="col-lg-8">
+            <h2>Operaciones CRUD en Laravel</h2>
+        
+            <p><strong>Qué son:</strong> Los métodos <code>create</code>, <code>store</code>, <code>edit</code>, y <code>update</code> son usados comúnmente para manejar las operaciones de crear y actualizar datos en una aplicación web.</p>
+        
+            <h3><code>create()</code></h3>
+            <p>Este método es usado para mostrar el formulario de creación de un nuevo recurso.</p>
+            <pre><code>
+            public function create()
+            {
+                return view('posts.create');
+            }
+            </code></pre>
+        
+            <h3><code>store()</code></h3>
+            <p>El método <code>store()</code> procesa y guarda el nuevo recurso en la base de datos después de validar los datos.</p>
+            <pre><code>
+            public function store(Request $request)
+            {
+                $validatedData = $request->validate([
+                    'title' => 'required|string|max:255',
+                    'content' => 'required',
+                ]);
+        
+                Post::create($validatedData);
+        
+                return redirect()->route('posts.index');
+            }
+            </code></pre>
+        
+            <h3><code>edit()</code></h3>
+            <p>El método <code>edit()</code> muestra el formulario de edición de un recurso existente.</p>
+            <pre><code>
+            public function edit(Post $post)
+            {
+                return view('posts.edit', compact('post'));
+            }
+            </code></pre>
+        
+            <h3><code>update()</code></h3>
+            <p>El método <code>update()</code> procesa los datos del formulario de edición y actualiza el recurso en la base de datos.</p>
+            <pre><code>
+            public function update(Request $request, Post $post)
+            {
+                $validatedData = $request->validate([
+                    'title' => 'required|string|max:255',
+                    'content' => 'required',
+                ]);
+        
+                $post->update($validatedData);
+        
+                return redirect()->route('posts.index');
+            }
+            </code></pre>
+        </section>
+
+        <section id="custom-validation-laravel" class="col-lg-8">
+            <h2>Validaciones Personalizadas en Laravel</h2>
+        
+            <p><strong>Qué son:</strong> A veces necesitas crear tus propias reglas de validación. Laravel te permite definir reglas personalizadas en clases separadas.</p>
+        
+            <p><strong>Ejemplo:</strong></p>
+            <pre><code>
+            // 1. Crea la regla con Artisan
+            php artisan make:rule Uppercase
+        
+            // 2. Define la lógica de la regla
+            namespace App\Rules;
+        
+            use Illuminate\Contracts\Validation\Rule;
+        
+            class Uppercase implements Rule
+            {
+                public function passes($attribute, $value)
+                {
+                    return strtoupper($value) === $value;
+                }
+        
+                public function message()
+                {
+                    return 'El :attribute debe estar en mayúsculas.';
+                }
+            }
+        
+            // 3. Utiliza la regla en tu validación
+            public function store(Request $request)
+            {
+                $validatedData = $request->validate([
+                    'name' => ['required', new Uppercase],
+                ]);
+            }
+            </code></pre>
+            <p>Este ejemplo crea una regla de validación que asegura que el nombre esté en mayúsculas.</p>
+        </section>
+
+        <div class="col-lg-8">
+            Repasemos 
+        </div>
+        <section id="migration-pacientes" class="col-lg-8">
+            <h2>Creación de la migración para la tabla "pacientes"</h2>
+        
+            <p><strong>Comando:</strong> Laravel nos permite crear migraciones de tablas usando el comando <code>php artisan make:migration</code>. Para este ejemplo, crearemos una migración para la tabla <code>pacientes</code> con 10 campos.</p>
+        
+            <p><strong>Ejemplo:</strong></p>
+            <pre><code>php artisan make:migration create_pacientes_table</code></pre>
+        
+            <p><strong>Resultado esperado:</strong> Esto genera un archivo en la carpeta <code>database/migrations</code> con el siguiente contenido:</p>
+            <pre><code>
+            use Illuminate\Database\Migrations\Migration;
+            use Illuminate\Database\Schema\Blueprint;
+            use Illuminate\Support\Facades\Schema;
+        
+            class CreatePacientesTable extends Migration
+            {
+                public function up()
+                {
+                    Schema::create('pacientes', function (Blueprint $table) {
+                        $table->id();
+                        $table->string('nombre');
+                        $table->string('apellido');
+                        $table->string('email')->unique();
+                        $table->date('fecha_nacimiento');
+                        $table->string('telefono');
+                        $table->string('direccion');
+                        $table->string('genero');
+                        $table->text('historial_medico')->nullable();
+                        $table->string('estado_civil');
+                        $table->timestamps();
+                    });
+                }
+        
+                public function down()
+                {
+                    Schema::dropIfExists('pacientes');
+                }
+            }
+            </code></pre>
+            <p>Esta migración crea la tabla <code>pacientes</code> con los campos requeridos.</p>
+        </section>
+
+        <section id="model-paciente" class="col-lg-8">
+            <h2>Creación del modelo "Paciente"</h2>
+        
+            <p><strong>Comando:</strong> Laravel nos permite crear un modelo usando el comando <code>php artisan make:model</code>. Esto generará una clase que representa la tabla <code>pacientes</code>.</p>
+        
+            <p><strong>Ejemplo:</strong></p>
+            <pre><code>php artisan make:model Paciente</code></pre>
+        
+            <p><strong>Resultado esperado:</strong> Esto crea el archivo <code>Paciente.php</code> en la carpeta <code>app/Models</code> con el siguiente contenido:</p>
+            <pre><code>
+            namespace App\Models;
+        
+            use Illuminate\Database\Eloquent\Factories\HasFactory;
+            use Illuminate\Database\Eloquent\Model;
+        
+            class Paciente extends Model
+            {
+                use HasFactory;
+        
+                protected $fillable = [
+                    'nombre',
+                    'apellido',
+                    'email',
+                    'fecha_nacimiento',
+                    'telefono',
+                    'direccion',
+                    'genero',
+                    'historial_medico',
+                    'estado_civil',
+                ];
+            }
+            </code></pre>
+            <p>El modelo <code>Paciente</code> define los campos que pueden ser llenados masivamente mediante formularios usando el array <code>fillable</code>.</p>
+        </section>
+
+        <section id="controller-paciente" class="col-lg-8">
+            <h2>Creación del controlador "PacienteController"</h2>
+        
+            <p><strong>Comando:</strong> Laravel nos permite crear un controlador de tipo *resource* que incluye los métodos básicos para CRUD (Crear, Leer, Actualizar, Borrar) mediante el comando <code>php artisan make:controller</code>.</p>
+        
+            <p><strong>Ejemplo:</strong></p>
+            <pre><code>php artisan make:controller PacienteController --resource</code></pre>
+        
+            <p><strong>Resultado esperado:</strong> Esto genera un archivo <code>PacienteController.php</code> en la carpeta <code>app/Http/Controllers</code> con los métodos por defecto.</p>
+        
+            <p><strong>Controlador con validaciones:</strong></p>
+            <pre><code>
+            namespace App\Http\Controllers;
+        
+            use App\Models\Paciente;
+            use Illuminate\Http\Request;
+        
+            class PacienteController extends Controller
+            {
+                public function index()
+                {
+                    $pacientes = Paciente::all();
+                    return view('pacientes.index', compact('pacientes'));
+                }
+        
+                public function create()
+                {
+                    return view('pacientes.create');
+                }
+        
+                public function store(Request $request)
+                {
+                    $validatedData = $request->validate([
+                        'nombre' => 'required|string|max:255',
+                        'apellido' => 'required|string|max:255',
+                        'email' => 'required|email|unique:pacientes,email',
+                        'fecha_nacimiento' => 'required|date',
+                        'telefono' => 'required|string|max:20',
+                        'direccion' => 'required|string|max:255',
+                        'genero' => 'required|string',
+                        'estado_civil' => 'required|string',
+                    ]);
+        
+                    Paciente::create($validatedData);
+                    return redirect()->route('pacientes.index')->with('success', 'Paciente creado con éxito.');
+                }
+        
+                public function show(Paciente $paciente)
+                {
+                    return view('pacientes.show', compact('paciente'));
+                }
+        
+                public function edit(Paciente $paciente)
+                {
+                    return view('pacientes.edit', compact('paciente'));
+                }
+        
+                public function update(Request $request, Paciente $paciente)
+                {
+                    $validatedData = $request->validate([
+                        'nombre' => 'required|string|max:255',
+                        'apellido' => 'required|string|max:255',
+                        'email' => 'required|email|unique:pacientes,email,'.$paciente->id,
+                        'fecha_nacimiento' => 'required|date',
+                        'telefono' => 'required|string|max:20',
+                        'direccion' => 'required|string|max:255',
+                        'genero' => 'required|string',
+                        'estado_civil' => 'required|string',
+                    ]);
+        
+                    $paciente->update($validatedData);
+                    return redirect()->route('pacientes.index')->with('success', 'Paciente actualizado con éxito.');
+                }
+        
+                public function destroy(Paciente $paciente)
+                {
+                    $paciente->delete();
+                    return redirect()->route('pacientes.index')->with('success', 'Paciente eliminado con éxito.');
+                }
+            }
+            </code></pre>
+            <p>Este controlador maneja las operaciones CRUD para el recurso "Paciente", incluyendo validaciones en los métodos <code>store</code> y <code>update</code>.</p>
+        </section>
+
+        
+        <section id="form-create-edit" class="col-lg-8">
+            <h2>Formularios de creación y edición de pacientes</h2>
+        
+            <p><strong>Formulario de creación:</strong></p>
+            <pre><code>
+            &lt;form action=&quot;{{ route('pacientes.store') }}&quot; method=&quot;POST&quot;&gt;
+                @csrf
+                &lt;label for=&quot;nombre&quot;&gt;Nombre:&lt;/label&gt;
+                &lt;input type=&quot;text&quot; name=&quot;nombre&quot; id=&quot;nombre&quot; class=&quot;form-control&quot; required&gt;
+        
+                &lt;label for=&quot;apellido&quot;&gt;Apellido:&lt;/label&gt;
+                &lt;input type=&quot;text&quot; name=&quot;apellido&quot; id=&quot;apellido&quot; class=&quot;form-control&quot; required&gt;
+        
+                &lt;label for=&quot;email&quot;&gt;Email:&lt;/label&gt;
+                &lt;input type=&quot;email&quot; name=&quot;email&quot; id=&quot;email&quot; class=&quot;form-control&quot; required&gt;
+        
+                &lt;label for=&quot;fecha_nacimiento&quot;&gt;Fecha de Nacimiento:&lt;/label&gt;
+                &lt;input type=&quot;date&quot; name=&quot;fecha_nacimiento&quot; id=&quot;fecha_nacimiento&quot; class=&quot;form-control&quot; required&gt;
+        
+                &lt;label for=&quot;telefono&quot;&gt;Teléfono:&lt;/label&gt;
+                &lt;input type=&quot;text&quot; name=&quot;telefono&quot; id=&quot;telefono&quot; class=&quot;form-control&quot; required&gt;
+        
+                &lt;label for=&quot;direccion&quot;&gt;Dirección:&lt;/label&gt;
+                &lt;input type=&quot;text&quot; name=&quot;direccion&quot; id=&quot;direccion&quot; class=&quot;form-control&quot; required&gt;
+        
+                &lt;label for=&quot;genero&quot;&gt;Género:&lt;/label&gt;
+                &lt;select name=&quot;genero&quot; id=&quot;genero&quot; class=&quot;form-control&quot;&gt;
+                    &lt;option value=&quot;masculino&quot;&gt;Masculino&lt;/option&gt;
+                    &lt;option value=&quot;femenino&quot;&gt;Femenino&lt;/option&gt;
+                &lt;/select&gt;
+        
+                &lt;label for=&quot;estado_civil&quot;&gt;Estado Civil:&lt;/label&gt;
+                &lt;select name=&quot;estado_civil&quot; id=&quot;estado_civil&quot; class=&quot;form-control&quot;&gt;
+                    &lt;option value=&quot;soltero&quot;&gt;Soltero&lt;/option&gt;
+                    &lt;option value=&quot;casado&quot;&gt;Casado&lt;/option&gt;
+                &lt;/select&gt;
+        
+                &lt;button type=&quot;submit&quot; class=&quot;btn btn-primary mt-3&quot;&gt;Crear Paciente&lt;/button&gt;
+            &lt;/form&gt;
+            </code></pre>
+        
+            <p><strong>Formulario de edición:</strong> Es similar al de creación pero con los valores cargados en los campos:</p>
+            <pre><code>
+            &lt;form action=&quot;{{ route('pacientes.update', $paciente->id) }}&quot; method=&quot;POST&quot;&gt;
+                @csrf
+                @method(&#39;PUT&#39;)
+                &lt;label for=&quot;nombre&quot;&gt;Nombre:&lt;/label&gt;
+                &lt;input type=&quot;text&quot; name=&quot;nombre&quot; id=&quot;nombre&quot; class=&quot;form-control&quot; value=&quot;{{ $paciente->nombre }}&quot; required&gt;
+        
+                &lt;label for=&quot;apellido&quot;&gt;Apellido:&lt;/label&gt;
+                &lt;input type=&quot;text&quot; name=&quot;apellido&quot; id=&quot;apellido&quot; class=&quot;form-control&quot; value=&quot;{{ $paciente->apellido }}&quot; required&gt;
+        
+                &lt;label for=&quot;email&quot;&gt;Email:&lt;/label&gt;
+                &lt;input type=&quot;email&quot; name=&quot;email&quot; id=&quot;email&quot; class=&quot;form-control&quot; value=&quot;{{ $paciente->email }}&quot; required&gt;
+        
+                &lt;label for=&quot;fecha_nacimiento&quot;&gt;Fecha de Nacimiento:&lt;/label&gt;
+                &lt;input type=&quot;date&quot; name=&quot;fecha_nacimiento&quot; id=&quot;fecha_nacimiento&quot; class=&quot;form-control&quot; value=&quot;{{ $paciente->fecha_nacimiento }}&quot; required&gt;
+        
+                &lt;label for=&quot;telefono&quot;&gt;Teléfono:&lt;/label&gt;
+                &lt;input type=&quot;text&quot; name=&quot;telefono&quot; id=&quot;telefono&quot; class=&quot;form-control&quot; value=&quot;{{ $paciente->telefono }}&quot; required&gt;
+        
+                &lt;label for=&quot;direccion&quot;&gt;Dirección:&lt;/label&gt;
+                &lt;input type=&quot;text&quot; name=&quot;direccion&quot; id=&quot;direccion&quot; class=&quot;form-control&quot; value=&quot;{{ $paciente->direccion }}&quot; required&gt;
+        
+                &lt;label for=&quot;genero&quot;&gt;Género:&lt;/label&gt;
+                &lt;select name=&quot;genero&quot; id=&quot;genero&quot; class=&quot;form-control&quot;&gt;
+                    &lt;option value=&quot;masculino&quot; {{ $paciente->genero == &#39;masculino&#39; ? &#39;selected&#39; : &#39;&#39; }}&gt;Masculino&lt;/option&gt;
+                    &lt;option value=&quot;femenino&quot; {{ $paciente->genero == &#39;femenino&#39; ? &#39;selected&#39; : &#39;&#39; }}&gt;Femenino&lt;/option&gt;
+                &lt;/select&gt;
+        
+                &lt;label for=&quot;estado_civil&quot;&gt;Estado Civil:&lt;/label&gt;
+                &lt;select name=&quot;estado_civil&quot; id=&quot;estado_civil&quot; class=&quot;form-control&quot;&gt;
+                    &lt;option value=&quot;soltero&quot; {{ $paciente->estado_civil == &#39;soltero&#39; ? &#39;selected&#39; : &#39;&#39; }}&gt;Soltero&lt;/option&gt;
+                    &lt;option value=&quot;casado&quot; {{ $paciente->estado_civil == &#39;casado&#39; ? &#39;selected&#39; : &#39;&#39; }}&gt;Casado&lt;/option&gt;
+                &lt;/select&gt;
+        
+                &lt;button type=&quot;submit&quot; class=&quot;btn btn-primary mt-3&quot;&gt;Actualizar Paciente&lt;/button&gt;
+            &lt;/form&gt;
+            </code></pre>
+        </section>
+        
+                
+    <section id="views-index-show" class="col-lg-8">
+    <h2>Vistas de listado y detalle de pacientes</h2>
+
+    <p><strong>Vista de listado:</strong> La vista <code>index.blade.php</code> muestra todos los pacientes en una tabla:</p>
+    <pre><code>
+    &lt;table class=&quot;table table-bordered&quot;&gt;
+        &lt;thead&gt;
+            &lt;tr&gt;
+                &lt;th&gt;Nombre&lt;/th&gt;
+                &lt;th&gt;Apellido&lt;/th&gt;
+                &lt;th&gt;Email&lt;/th&gt;
+                &lt;th&gt;Teléfono&lt;/th&gt;
+                &lt;th&gt;Acciones&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+            @foreach($pacientes as $paciente)
+                &lt;tr&gt;
+                    &lt;td&gt;{{ $paciente-&gt;nombre }}&lt;/td&gt;
+                    &lt;td&gt;{{ $paciente-&gt;apellido }}&lt;/td&gt;
+                    &lt;td&gt;{{ $paciente-&gt;email }}&lt;/td&gt;
+                    &lt;td&gt;{{ $paciente-&gt;telefono }}&lt;/td&gt;
+                    &lt;td&gt;
+                        &lt;a href=&quot;{{ route('pacientes.show', $paciente-&gt;id) }}&quot; class=&quot;btn btn-info&quot;&gt;Ver&lt;/a&gt;
+                        &lt;a href=&quot;{{ route('pacientes.edit', $paciente-&gt;id) }}&quot; class=&quot;btn btn-warning&quot;&gt;Editar&lt;/a&gt;
+                        &lt;form action=&quot;{{ route('pacientes.destroy', $paciente-&gt;id) }}&quot; method=&quot;POST&quot; style=&quot;display:inline-block;&quot;&gt;
+                            @csrf
+                            @method(&#39;DELETE&#39;)
+                            &lt;button type=&quot;submit&quot; class=&quot;btn btn-danger&quot;&gt;Eliminar&lt;/button&gt;
+                        &lt;/form&gt;
+                    &lt;/td&gt;
+                &lt;/tr&gt;
+            @endforeach
+        &lt;/tbody&gt;
+    &lt;/table&gt;
+    </code></pre>
+
+    <p><strong>Vista de detalle:</strong> La vista <code>show.blade.php</code> muestra los detalles de un paciente:</p>
+    <pre><code>
+    &lt;h2&gt;Detalles del paciente&lt;/h2&gt;
+    &lt;p&gt;&lt;strong&gt;Nombre:&lt;/strong&gt; {{ $paciente-&gt;nombre }}&lt;/p&gt;
+    &lt;p&gt;&lt;strong&gt;Apellido:&lt;/strong&gt; {{ $paciente-&gt;apellido }}&lt;/p&gt;
+    &lt;p&gt;&lt;strong&gt;Email:&lt;/strong&gt; {{ $paciente-&gt;email }}&lt;/p&gt;
+    &lt;p&gt;&lt;strong&gt;Teléfono:&lt;/strong&gt; {{ $paciente-&gt;telefono }}&lt;/p&gt;
+    &lt;p&gt;&lt;strong&gt;Fecha de Nacimiento:&lt;/strong&gt; {{ $paciente-&gt;fecha_nacimiento }}&lt;/p&gt;
+    &lt;p&gt;&lt;strong&gt;Género:&lt;/strong&gt; {{ $paciente-&gt;genero }}&lt;/p&gt;
+    &lt;p&gt;&lt;strong&gt;Estado Civil:&lt;/strong&gt; {{ $paciente-&gt;estado_civil }}&lt;/p&gt;
+    &lt;p&gt;&lt;strong&gt;Dirección:&lt;/strong&gt; {{ $paciente-&gt;direccion }}&lt;/p&gt;
+
+    &lt;a href=&quot;{{ route('pacientes.edit', $paciente-&gt;id) }}&quot; class=&quot;btn btn-warning&quot;&gt;Editar&lt;/a&gt;
+    &lt;form action=&quot;{{ route('pacientes.destroy', $paciente-&gt;id) }}&quot; method=&quot;POST&quot; style=&quot;display:inline-block;&quot;&gt;
+        @csrf
+        @method(&#39;DELETE&#39;)
+        &lt;button type=&quot;submit&quot; class=&quot;btn btn-danger&quot;&gt;Eliminar&lt;/button&gt;
+    &lt;/form&gt;
+    </code></pre>
+</section>
+
+        
+        
+    </div>
+</div>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+
+        // Detectar si el usuario ya tiene una preferencia en localStorage
+        const userTheme = localStorage.getItem('theme');
+        const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+
+        const currentTheme = userTheme || systemTheme;
+
+        // Aplicar el tema al cargar la página
+        if (currentTheme === 'dark') {
+            body.classList.add('dark-mode');
+            themeToggle.classList.replace('fa-sun', 'fa-moon');
+        } else {
+            body.classList.add('light-mode');
+            themeToggle.classList.replace('fa-moon', 'fa-sun');
+        }
+
+        // Cambiar tema al presionar el ícono
+        themeToggle.addEventListener('click', function() {
+            if (body.classList.contains('light-mode')) {
+                // Cambiar a modo oscuro
+                body.classList.replace('light-mode', 'dark-mode');
+                themeToggle.classList.replace('fa-sun', 'fa-moon');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                // Cambiar a modo claro
+                body.classList.replace('dark-mode', 'light-mode');
+                themeToggle.classList.replace('fa-moon', 'fa-sun');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+    });
+</script>
+</body>
+</html>

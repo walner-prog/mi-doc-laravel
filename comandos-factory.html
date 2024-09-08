@@ -1,0 +1,1461 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>migraciones y modelos </title>
+    
+ 
+    </head>
+<body>
+    
+    
+ <div class="container mt-1">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <a class="navbar-brand font-weight-bold text-dark" href="/index.html">Doc Laravel</a>
+                    <button class="navbar-toggler text-dark" type="button" data-toggle="collapse" data-target="#navbar1" aria-controls="navbar1" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+      
+    
+        <div class="collapse navbar-collapse " id="navbar1">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link text-dark" href="/index.html">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="/comandos-factory.html">Migraciones y Modelos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="/migraciones-modelos.html">Controladores y Modelos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="/laravel-sql.html">Tutoriales de Programación</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="/formularios-valicaciones.html">Formularios en laravel </a>
+                </li>
+            </ul>
+        </div>
+        <div class="d-flex justify-content-end"></div>
+        <i id="themeToggle" class="fas fa-sun theme-icon" style="font-size: 24px;"></i>
+        </div>
+    </nav>
+ 
+
+     <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-2">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top w-25 mt-5" >
+                <div class="container-fluid">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav flex-column">
+                            <li class="nav-item"><a class="nav-link" href="#faker-datatypes">php artisan make:migration</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#metodos-controler">Métodos Comunes en Controladores de Laravel</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#business-logic">Lógica de negocio en Laravel</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#mathematical-operations">Operaciones matemáticas en Laravel</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#data-comparisons">Comparaciones de datos en Laravel</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#doctor-examples">Ejemplos de Doctores en Laravel</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#paciente-examples">Ejemplos de Pacientes en Laravel</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-4"></div>
+        <div class="col-lg-8 col-md-12 mt-5  justify-content-center">
+                
+               
+                <section id="faker-datatypes">
+                    
+                    <h2>Faker Data Types in Laravel</h2>
+                
+                    <p>Faker es una poderosa herramienta para generar datos ficticios. A continuación, se detallan 50 tipos de datos que se pueden generar utilizando Faker en Laravel, aplicados al modelo Doctor. Cada uno incluye una explicación del tipo de dato y lo que genera en ese campo.</p>
+                
+                    <h3>1. <code>$this->faker->name</code></h3>
+                    <p><strong>Descripción:</strong> Genera un nombre completo.</p>
+                    <p><strong>Ejemplo con Doctor:</strong> <code>'nombre_completo' => $this->faker->name</code></p>
+                    <p><strong>Genera:</strong> "Dr. John Doe"</p>
+                
+                    <h3>2. <code>$this->faker->firstName</code></h3>
+                    <p><strong>Descripción:</strong> Genera un primer nombre.</p>
+                    <p><strong>Ejemplo con Doctor:</strong> <code>'primer_nombre' => $this->faker->firstName</code></p>
+                    <p><strong>Genera:</strong> "John"</p>
+                
+                    <h3>3. <code>$this->faker->lastName</code></h3>
+                    <p><strong>Descripción:</strong> Genera un apellido.</p>
+                    <p><strong>Ejemplo con Doctor:</strong> <code>'primer_apellido' => $this->faker->lastName</code></p>
+                    <p><strong>Genera:</strong> "Doe"</p>
+                
+                    <h3>4. <code>$this->faker->unique()->numerify('DOC###')</code></h3>
+                    <p><strong>Descripción:</strong> Genera un código único con formato específico.</p>
+                    <p><strong>Ejemplo con Doctor:</strong> <code>'codigo' => $this->faker->unique()->numerify('DOC###')</code></p>
+                    <p><strong>Genera:</strong> "DOC123"</p>
+                
+                    <h3>5. <code>$this->faker->email</code></h3>
+                    <p><strong>Descripción:</strong> Genera una dirección de correo electrónico.</p>
+                    <p><strong>Ejemplo con Doctor:</strong> <code>'email' => $this->faker->unique()->safeEmail</code></p>
+                    <p><strong>Genera:</strong> "johndoe@example.com"</p>
+                
+                    <h3>6. <code>$this->faker->numerify('#########')</code></h3>
+                    <p><strong>Descripción:</strong> Genera un número de cédula o identificación.</p>
+                    <p><strong>Ejemplo con Doctor:</strong> <code>'cedula' => $this->faker->unique()->numerify('#########')</code></p>
+                    <p><strong>Genera:</strong> "123456789"</p>
+                
+                    <h3>7. <code>$this->faker->phoneNumber</code></h3>
+                    <p><strong>Descripción:</strong> Genera un número de teléfono.</p>
+                    <p><strong>Ejemplo con Doctor:</strong> <code>'telefono' => $this->faker->phoneNumber</code></p>
+                    <p><strong>Genera:</strong> "555-1234"</p>
+                
+                    <h3>8. <code>$this->faker->address</code></h3>
+                    <p><strong>Descripción:</strong> Genera una dirección postal completa.</p>
+                    <p><strong>Ejemplo con Doctor:</strong> <code>'direccion' => $this->faker->address</code></p>
+                    <p><strong>Genera:</strong> "123 Main St, Springfield, IL"</p>
+                
+                    <h3>9. <code>$this->faker->city</code></h3>
+                    <p><strong>Descripción:</strong> Genera el nombre de una ciudad.</p>
+                    <p><strong>Ejemplo con Doctor:</strong> <code>'ciudad' => $this->faker->city</code></p>
+                    <p><strong>Genera:</strong> "Springfield"</p>
+                
+                    <h3>10. <code>$this->faker->state</code></h3>
+                    <p><strong>Descripción:</strong> Genera el nombre de un estado.</p>
+                    <p><strong>Ejemplo con Doctor:</strong> <code>'estado' => $this->faker->state</code></p>
+                    <p><strong>Genera:</strong> "Illinois"</p>
+                
+                    <h3>11. <code>$this->faker->postcode</code></h3>
+                    <p><strong>Descripción:</strong> Genera un código postal.</p>
+                    <p><strong>Ejemplo con Doctor:</strong> <code>'codigo_postal' => $this->faker->postcode</code></p>
+                    <p><strong>Genera:</strong> "62704"</p>
+                
+                    <h3>12. <code>$this->faker->country</code></h3>
+                    <p><strong>Descripción:</strong> Genera el nombre de un país.</p>
+                    <p><strong>Ejemplo con Doctor:</strong> <code>'pais' => $this->faker->country</code></p>
+                    <p><strong>Genera:</strong> "United States"</p>
+                
+                    <h3>13. <code>$this->faker->date</code></h3>
+                    <p><strong>Descripción:</strong> Genera una fecha.</p>
+                    <p><strong>Ejemplo con Doctor:</strong> <code>'fecha_contratacion' => $this->faker->date</code></p>
+                    <p><strong>Genera:</strong> "2023-01-01"</p>
+                
+                    <h3>14. <code>$this->faker->dateTime</code></h3>
+                    <p><strong>Descripción:</strong> Genera una fecha y hora.</p>
+                    <p><strong>Ejemplo con Doctor:</strong> <code>'ultima_visita' => $this->faker->dateTime</code></p>
+                    <p><strong>Genera:</strong> "2024-08-26 14:30:00"</p>
+                
+                    <h3>15. <code>$this->faker->time</code></h3>
+                    <p><strong>Descripción:</strong> Genera una hora específica.</p>
+                    <p><strong>Ejemplo con Doctor:</strong> <code>'horario_trabajo' => $this->faker->time($format = 'H:i', $max = 'now')</code></p>
+                    <p><strong>Genera:</strong> "08:00"</p>
+                
+                    <h3>16. <code>$this->faker->sentence</code></h3>
+                    <p><strong>Descripción:</strong> Genera una oración.</p>
+                    <p><strong>Ejemplo con Doctor:</strong> <code>'biografia' => $this->faker->sentence</code></p>
+                    <p><strong>Genera:</strong> "Experienced doctor with over 20 years in the medical field."</p>
+                
+                    <h3>17. <code>$this->faker->paragraph</code></h3>
+                    <p><strong>Descripción:</strong> Genera un párrafo.</p>
+                    <p><strong>Ejemplo con Doctor:</strong> <code>'historia_clinica' => $this->faker->paragraph</code></p>
+                    <p><strong>Genera:</strong> "Dr. John Doe has been serving the community for over 15 years. His expertise in cardiology..."</p>
+                
+                    <h3>18. <code>$this->faker->text($maxNbChars = 200)</code></h3>
+                    <p><strong>Descripción:</strong> Genera un texto con un número máximo de caracteres.</p>
+                    <p><strong>Ejemplo con Doctor:</strong> <code>'notas_adicionales' => $this->faker->text(200)</code></p>
+                    <p><strong>Genera:</strong> "Dr. Doe specializes in pediatric care and has extensive experience in treating chronic conditions..."</p>
+                
+                    <h3>19. <code>$this->faker->boolean</code></h3>
+                    <p><strong>Descripción:</strong> Genera un valor booleano (verdadero o falso).</p>
+                    <p><strong>Ejemplo con Doctor:</strong> <code>'disponible' => $this->faker->boolean</code></p>
+                    <p><strong>Genera:</strong> true</p>
+                
+                    <h3>20. <code>$this->faker->randomElement(['masculino', 'femenino'])</code></h3>
+                    <p><strong>Descripción:</strong> Genera un valor aleatorio de una lista dada.</p>
+                    <p><strong>Ejemplo con Doctor:</strong> <code>'sexo' => $this->faker->randomElement(['masculino', 'femenino'])</code></p>
+                    <p><strong>Genera:</strong> "masculino"</p>
+                
+                    <h3>21. <code>$this->faker->randomNumber($nbDigits = 5)</code></h3>
+                    <p><strong>Descripción:</strong> Genera un número aleatorio con un número específico de dígitos.</p>
+                    <p><strong>Ejemplo con Doctor:</strong> <code>'numero_empleado' => $this->faker->randomNumber(5)</code></p>
+                    <p><strong>Genera:</strong> 12345</p>
+                
+                    <h3>22. <code>$this->faker->randomFloat($nbMaxDecimals = 2, $min = 0, $max = 100)</code></h3>
+                    <p><strong>Descripción:</strong> Genera un número decimal aleatorio.</p>
+                    <p><strong>Ejemplo con Doctor:</strong> <code>'porcentaje_asignado' => $this->faker->randomFloat(2, 0, 100)</code></p>
+                    <p><strong>Genera:</strong> 75.25</p>
+                
+                    <h3>23. <code>$this->faker->jobTitle</code></h3>
+                    <p><strong>Descripción:</strong> Genera un título de trabajo.</p>
+                    <p><strong>Ejemplo con Doctor:</strong> <code>'cargo' => $this->faker->jobTitle</code></p>
+                    <p><strong>Genera:</strong> "Cardiologist"</p>
+                
+                    <h3>24. <code>$this->faker->company</code></h3>
+                    <p><strong>Descripción:</strong> Genera un nombre de empresa o institución.</p>
+                    <p><strong>Ejemplo con Doctor:</strong> <code>'hospital' => $this->faker->company</code></p>
+                    <p><strong>Genera:</strong> "St. Mary's Hospital"</p>
+                
+                    <h3>25. <code>$this->faker->domainName</code></h3>
+                    <p><strong>Descripción:</strong> Genera un nombre de dominio web.</p>
+                    <p><strong>Ejemplo con Doctor:</strong> <code>'pagina_web' => $this->faker->domainName</code></p>
+                    <p><strong>Genera:</strong> "hospital.com"</p>
+                
+                    <h3>26. <code>$this->faker->userName</code></h3>
+                    <p><strong>Descripción:</strong> Genera un nombre de usuario.</p>
+                    <p><strong>Ejemplo con Doctor:</strong> <code>'usuario' => $this->faker->userName</code></p>
+                    <p><strong>Genera:</strong> "johndoe123"</p>
+                
+                    <h3>27. <code>$this->faker->password</code></h3>
+                    <p><strong>Descripción:</strong> Genera una contraseña segura.</p>
+                    <p><strong>Ejemplo con Doctor:</strong> <code>'password' => bcrypt($this->faker->password)</code></p>
+                    <p><strong>Genera:</strong> Una cadena encriptada para mayor seguridad.</p>
+                
+                    <h3>28. <code>$this->faker->randomDigit</code></h3>
+                    <p><strong>Descripción:</strong> Genera un dígito aleatorio del 0 al 9.</p>
+                    <p><strong>Ejemplo con Doctor:</strong> <code>'piso' => $this->faker->randomDigit</code></p>
+                    <p><strong>Genera:</strong> 7</p>
+                
+                    <h3>29. <code>$this->faker->creditCardNumber</code></h3>
+                    <p><strong>Descripción:</strong> Genera un número de tarjeta de crédito válido.</p>
+                    <p><strong>Ejemplo con Doctor:</strong> <code>'tarjeta_credito' => $this->faker->creditCardNumber</code></p>
+                    <p><strong>Genera:</strong> "4111111111111111"</p>
+                
+                    <h3>30. <code>$this->faker->iban($countryCode = 'US')</code></h3>
+                    <p><strong>Descripción:</strong> Genera un número de cuenta bancaria internacional (IBAN).</p>
+                    <p><strong>Ejemplo con Doctor:</strong> <code>'cuenta_bancaria' => $this->faker->iban('US')</code></p>
+                    <p><strong>Genera:</strong> "US12345678901234567890"</p>
+                
+                    <h3>31. <code>$this->faker->currencyCode</code></h3>
+                    <p><strong>Descripción:</strong> Genera un código de moneda (ISO 4217).</p>
+                    <p><strong>Ejemplo con Doctor:</strong> <code>'codigo_moneda' => $this->faker->currencyCode</code></p>
+                    <p><strong>Genera:</strong> "USD"</p>
+                
+                    <h3>32. <code>$this->faker->languageCode</code></h3>
+                    <p><strong>Descripción:</strong> Genera un código de lenguaje (ISO 639-1).</p>
+                    <p><strong>Ejemplo con Doctor:</strong> <code>'codigo_idioma' => $this->faker->languageCode</code></p>
+                    <p><strong>Genera:</strong> "en"</p>
+                
+                    <h3>33. <code>$this->faker->locale</code></h3>
+                    <p><strong>Descripción:</strong> Genera un código de localización.</p>
+                    <p><strong>Ejemplo con Doctor:</strong> <code>'localizacion' => $this->faker->locale</code></p>
+                    <p><strong>Genera:</strong> "en_US"</p>
+                
+                    <h3>34. <code>$this->faker->uuid</code></h3>
+                    <p><strong>Descripción:</strong> Genera un identificador único universal (UUID).</p>
+                    <p><strong>Ejemplo con Doctor:</strong> <code>'uuid' => $this->faker->uuid</code></p>
+                    <p><strong>Genera:</strong> "550e8400-e29b-41d4-a716-446655440000"</p>
+                
+                    <h3>35. <code>$this->faker->imageUrl($width = 640, $height = 480)</code></h3>
+                    <p><strong>Descripción:</strong> Genera una URL de una imagen aleatoria.</p>
+                    <p><strong>Ejemplo con Doctor:</strong> <code>'foto_perfil' => $this->faker->imageUrl(640, 480)</code></p>
+                    <p><strong>Genera:</strong> Una URL de una imagen de tamaño 640x480.</p>
+                
+                    <h3>36. <code>$this->faker->image($dir = '/tmp', $width = 640, $height = 480)</code></h3>
+                    <p><strong>Descripción:</strong> Genera una imagen ficticia y la guarda en una ubicación específica.</p>
+                    <p><strong>Ejemplo con Doctor:</strong> <code>'imagen_certificado' => $this->faker->image('/path/to/storage', 640, 480)</code></p>
+                    <p><strong>Genera:</strong> Una imagen en el directorio especificado.</p>
+                
+                    <h3>37. <code>$this->faker->file($sourceDir = '/tmp', $targetDir = '/tmp', $fullPath = true)</code></h3>
+                    <p><strong>Descripción:</strong> Copia un archivo aleatorio de un directorio a otro.</p>
+                    <p><strong>Ejemplo con Doctor:</strong> <code>'archivo_certificacion' => $this->faker->file('/source/path', '/target/path')</code></p>
+                    <p><strong>Genera:</strong> Copia un archivo de un directorio a otro.</p>
+                
+                    <h3>38. <code>$this->faker->mimeType</code></h3>
+                    <p><strong>Descripción:</strong> Genera un tipo MIME de archivo.</p>
+                    <p><strong>Ejemplo con Doctor:</strong> <code>'tipo_archivo' => $this->faker->mimeType</code></p>
+                    <p><strong>Genera:</strong> "application/pdf"</p>
+                
+                    <h3>39. <code>$this->faker->fileExtension</code></h3>
+                    <p><strong>Descripción:</strong> Genera una extensión de archivo.</p>
+                    <p><strong>Ejemplo con Doctor:</strong> <code>'extension_archivo' => $this->faker->fileExtension</code></p>
+                    <p><strong>Genera:</strong> "pdf"</p>
+                
+                    <h3>40. <code>$this->faker->domainWord</code></h3>
+                    <p><strong>Descripción:</strong> Genera una palabra de dominio web.</p>
+                    <p><strong>Ejemplo con Doctor:</strong> <code>'nombre_dominio' => $this->faker->domainWord</code></p>
+                    <p><strong>Genera:</strong> "hospital"</p>
+                
+                    <h3>41. <code>$this->faker->macAddress</code></h3>
+                    <p><strong>Descripción:</strong> Genera una dirección MAC.</p>
+                    <p><strong>Ejemplo con Doctor:</strong> <code>'direccion_mac' => $this->faker->macAddress</code></p>
+                    <p><strong>Genera:</strong> "00:14:22:01:23:45"</p>
+                
+                    <h3>42. <code>$this->faker->ipv4</code></h3>
+                    <p><strong>Descripción:</strong> Genera una dirección IPv4.</p>
+                    <p><strong>Ejemplo con Doctor:</strong> <code>'direccion_ip' => $this->faker->ipv4</code></p>
+                    <p><strong>Genera:</strong> "192.168.0.1"</p>
+                
+                    <h3>43. <code>$this->faker->ipv6</code></h3>
+                    <p><strong>Descripción:</strong> Genera una dirección IPv6.</p>
+                    <p><strong>Ejemplo con Doctor:</strong> <code>'direccion_ip_v6' => $this->faker->ipv6</code></p>
+                    <p><strong>Genera:</strong> "2001:0db8:85a3:0000:0000:8a2e:0370:7334"</p>
+                
+                    <h3>44. <code>$this->faker->ean13</code></h3>
+                    <p><strong>Descripción:</strong> Genera un código de barras EAN-13.</p>
+                    <p><strong>Ejemplo con Doctor:</strong> <code>'codigo_barras' => $this->faker->ean13</code></p>
+                    <p><strong>Genera:</strong> "4006381333931"</p>
+                
+                    <h3>45. <code>$this->faker->ean8</code></h3>
+                    <p><strong>Descripción:</strong> Genera un código de barras EAN-8.</p>
+                    <p><strong>Ejemplo con Doctor:</strong> <code>'codigo_barras_corto' => $this->faker->ean8</code></p>
+                    <p><strong>Genera:</strong> "73513537"</p>
+                
+                    <h3>46. <code>$this->faker->isbn10</code></h3>
+                    <p><strong>Descripción:</strong> Genera un número ISBN-10.</p>
+                    <p><strong>Ejemplo con Doctor:</strong> <code>'numero_isbn' => $this->faker->isbn10</code></p>
+                    <p><strong>Genera:</strong> "0-123456-47-9"</p>
+                
+                    <h3>47. <code>$this->faker->isbn13</code></h3>
+                    <p><strong>Descripción:</strong> Genera un número ISBN-13.</p>
+                    <p><strong>Ejemplo con Doctor:</strong> <code>'numero_isbn_largo' => $this->faker->isbn13</code></p>
+                    <p><strong>Genera:</strong> "978-1-56619-909-4"</p>
+                
+                    <h3>48. <code>$this->faker->hexColor</code></h3>
+                    <p><strong>Descripción:</strong> Genera un color hexadecimal.</p>
+                    <p><strong>Ejemplo con Doctor:</strong> <code>'color_favorito' => $this->faker->hexColor</code></p>
+                    <p><strong>Genera:</strong> "#ff5733"</p>
+                
+                    <h3>49. <code>$this->faker->rgbColor</code></h3>
+                    <p><strong>Descripción:</strong> Genera un color RGB.</p>
+                    <p><strong>Ejemplo con Doctor:</strong> <code>'color_favorito_rgb' => $this->faker->rgbColor</code></p>
+                    <p><strong>Genera:</strong> "255,87,51"</p>
+                
+                    <h3>50. <code>$this->faker->rgbCssColor</code></h3>
+                    <p><strong>Descripción:</strong> Genera un color RGB en formato CSS.</p>
+                    <p><strong>Ejemplo con Doctor:</strong> <code>'color_css' => $this->faker->rgbCssColor</code></p>
+                    <p><strong>Genera:</strong> "rgb(255,87,51)"</p>
+                
+                </section>
+
+                <section id="metodos-controler">
+
+                    <h1>Métodos Comunes en Controladores de Laravel</h1>
+
+                    <h2>1. <code>index()</code></h2>
+                    <p><strong>Descripción:</strong> Muestra una lista de todos los registros de Doctor.</p>
+                    <p><strong>Cómo lo hace:</strong> Recupera todos los registros del modelo Doctor y los pasa a una vista.</p>
+                    <pre><code>public function index()
+                {
+                    $doctores = Doctor::with('especialidad')->get();
+                    return view('doctores.index', compact('doctores'));
+                }
+                    </code></pre>
+                    <p><strong>Explicación:</strong> Este método obtiene todos los doctores junto con su especialidad asociada usando la función <code>with()</code>. Luego, pasa los datos a la vista <code>doctores.index</code>.</p>
+                
+                    <h2>2. <code>create()</code></h2>
+                    <p><strong>Descripción:</strong> Muestra el formulario para crear un nuevo Doctor.</p>
+                    <p><strong>Cómo lo hace:</strong> Solo devuelve una vista con el formulario de creación.</p>
+                    <pre><code>public function create()
+                {
+                    $especialidades = Especialidad::all();
+                    return view('doctores.create', compact('especialidades'));
+                }
+                    </code></pre>
+                    <p><strong>Explicación:</strong> Este método carga todas las especialidades disponibles y las pasa a la vista <code>doctores.create</code>, donde se mostrará el formulario de creación.</p>
+                
+                    <h2>3. <code>store(Request $request)</code></h2>
+                    <p><strong>Descripción:</strong> Guarda un nuevo Doctor en la base de datos.</p>
+                    <p><strong>Cómo lo hace:</strong> Valida los datos del formulario, crea un nuevo Doctor con esos datos y guarda el registro.</p>
+                    <pre><code>public function store(Request $request)
+                {
+                    $request->validate([
+                        'primer_nombre' => 'required|string|max:255',
+                        'primer_apellido' => 'required|string|max:255',
+                        'email' => 'required|email|unique:doctores,email',
+                        'telefono' => 'required|string',
+                        'especialidad_id' => 'required|exists:especialidades,id',
+                    ]);
+                
+                    Doctor::create([
+                        'primer_nombre' => $request->primer_nombre,
+                        'primer_apellido' => $request->primer_apellido,
+                        'email' => $request->email,
+                        'telefono' => $request->telefono,
+                        'especialidad_id' => $request->especialidad_id,
+                    ]);
+                
+                    return redirect()->route('doctores.index')->with('success', 'Doctor creado exitosamente.');
+                }
+                    </code></pre>
+                    <p><strong>Explicación:</strong> Este método valida los datos del formulario, luego crea un nuevo doctor con esos datos y lo guarda en la base de datos. Finalmente, redirige a la lista de doctores con un mensaje de éxito.</p>
+                
+                    <h2>4. <code>show($id)</code></h2>
+                    <p><strong>Descripción:</strong> Muestra un único registro de Doctor.</p>
+                    <p><strong>Cómo lo hace:</strong> Recupera un Doctor específico junto con su especialidad asociada y lo pasa a una vista.</p>
+                    <pre><code>public function show($id)
+                {
+                    $doctor = Doctor::with('especialidad')->findOrFail($id);
+                    return view('doctores.show', compact('doctor'));
+                }
+                    </code></pre>
+                    <p><strong>Explicación:</strong> Este método busca un doctor específico por su ID, junto con su especialidad, y pasa la información a la vista <code>doctores.show</code>.</p>
+                
+                    <h2>5. <code>edit($id)</code></h2>
+                    <p><strong>Descripción:</strong> Muestra el formulario para editar un Doctor existente.</p>
+                    <p><strong>Cómo lo hace:</strong> Recupera el Doctor y las especialidades disponibles, y pasa estos datos a una vista.</p>
+                    <pre><code>public function edit($id)
+                {
+                    $doctor = Doctor::findOrFail($id);
+                    $especialidades = Especialidad::all();
+                    return view('doctores.edit', compact('doctor', 'especialidades'));
+                }
+                    </code></pre>
+                    <p><strong>Explicación:</strong> Este método obtiene un doctor por su ID y todas las especialidades. Luego pasa estos datos a la vista <code>doctores.edit</code>, donde se mostrará el formulario de edición.</p>
+                
+                    <h2>6. <code>update(Request $request, $id)</code></h2>
+                    <p><strong>Descripción:</strong> Actualiza un Doctor existente en la base de datos.</p>
+                    <p><strong>Cómo lo hace:</strong> Valida los datos del formulario, busca el Doctor por su ID, actualiza sus datos y guarda los cambios.</p>
+                    <pre><code>public function update(Request $request, $id)
+                {
+                    $request->validate([
+                        'primer_nombre' => 'required|string|max:255',
+                        'primer_apellido' => 'required|string|max:255',
+                        'email' => 'required|email|unique:doctores,email,' . $id,
+                        'telefono' => 'required|string',
+                        'especialidad_id' => 'required|exists:especialidades,id',
+                    ]);
+                
+                    $doctor = Doctor::findOrFail($id);
+                    $doctor->update([
+                        'primer_nombre' => $request->primer_nombre,
+                        'primer_apellido' => $request->primer_apellido,
+                        'email' => $request->email,
+                        'telefono' => $request->telefono,
+                        'especialidad_id' => $request->especialidad_id,
+                    ]);
+                
+                    return redirect()->route('doctores.index')->with('success', 'Doctor actualizado exitosamente.');
+                }
+                    </code></pre>
+                    <p><strong>Explicación:</strong> Este método valida los datos, encuentra el doctor por ID, actualiza sus datos y guarda los cambios. Luego redirige a la lista de doctores con un mensaje de éxito.</p>
+                
+                    <h2>7. <code>destroy($id)</code></h2>
+                    <p><strong>Descripción:</strong> Elimina un Doctor de la base de datos.</p>
+                    <p><strong>Cómo lo hace:</strong> Busca el Doctor por su ID y lo elimina de la base de datos.</p>
+                    <pre><code>public function destroy($id)
+                {
+                    $doctor = Doctor::findOrFail($id);
+                    $doctor->delete();
+                
+                    return redirect()->route('doctores.index')->with('success', 'Doctor eliminado exitosamente.');
+                }
+                    </code></pre>
+                    <p><strong>Explicación:</strong> Este método busca un doctor por ID y lo elimina. Luego redirige a la lista de doctores con un mensaje de éxito.</p>
+                
+
+                </section>
+
+                <section id="business-logic">
+                    <h2>La Lógica de Negocios en el Controlador</h2>
+                    <p><strong>Definición:</strong> La lógica de negocios en un controlador maneja las reglas y operaciones específicas de la aplicación. Se encarga de procesar los datos, aplicar reglas de validación, interactuar con el modelo y preparar la información para la vista.</p>
+                    <p><strong>Cómo lo Hace:</strong> Se realiza dentro de los métodos del controlador. Los métodos pueden recibir solicitudes HTTP, validar los datos de entrada, interactuar con los modelos para consultar o modificar los datos, y finalmente pasar los datos a las vistas para ser presentados al usuario.</p>
+                
+                    <h3>Ejemplos de Lógica de Negocios en el Controlador de Doctor</h3>
+                
+                    <h4>1. Crear un Nuevo Doctor</h4>
+                    <p><strong>Lógica:</strong> Validar los datos del formulario, crear un nuevo doctor en la base de datos.</p>
+                    <pre><code>
+                public function store(Request $request)
+                {
+                    $request->validate([
+                        'primer_nombre' => 'required|string|max:255',
+                        'primer_apellido' => 'required|string|max:255',
+                        'email' => 'required|email|unique:doctores,email',
+                        'telefono' => 'required|string|max:15',
+                        'especialidad_id' => 'required|exists:especialidades,id',
+                    ]);
+                
+                    Doctor::create($request->all());
+                
+                    return redirect()->route('doctores.index')->with('success', 'Doctor creado con éxito.');
+                }
+                    </code></pre>
+                    <p><strong>En la Vista create:</strong> Se muestran los campos para ingresar los datos y se valida que se ingresen correctamente.</p>
+                
+                    <h4>2. Actualizar un Doctor</h4>
+                    <p><strong>Lógica:</strong> Validar los datos del formulario, actualizar el registro del doctor en la base de datos.</p>
+                    <pre><code>
+                public function update(Request $request, $id)
+                {
+                    $doctor = Doctor::findOrFail($id);
+                
+                    $request->validate([
+                        'primer_nombre' => 'required|string|max:255',
+                        'primer_apellido' => 'required|string|max:255',
+                        'email' => 'required|email|unique:doctores,email,' . $doctor->id,
+                        'telefono' => 'required|string|max:15',
+                        'especialidad_id' => 'required|exists:especialidades,id',
+                    ]);
+                
+                    $doctor->update($request->all());
+                
+                    return redirect()->route('doctores.index')->with('success', 'Doctor actualizado con éxito.');
+                }
+                    </code></pre>
+                    <p><strong>En la Vista edit:</strong> Se permite al usuario editar los datos existentes y se valida la entrada.</p>
+                
+                    <h4>3. Mostrar los Detalles de un Doctor</h4>
+                    <p><strong>Lógica:</strong> Obtener los detalles del doctor y su especialidad desde la base de datos.</p>
+                    <pre><code>
+                public function show($id)
+                {
+                    $doctor = Doctor::findOrFail($id);
+                    return view('doctores.show', compact('doctor'));
+                }
+                    </code></pre>
+                    <p><strong>En la Vista show:</strong> Se muestran los detalles del doctor, como nombre, email y especialidad.</p>
+                
+                    <h4>4. Eliminar un Doctor</h4>
+                    <p><strong>Lógica:</strong> Eliminar el registro del doctor de la base de datos.</p>
+                    <pre><code>
+                public function destroy($id)
+                {
+                    $doctor = Doctor::findOrFail($id);
+                    $doctor->delete();
+                
+                    return redirect()->route('doctores.index')->with('success', 'Doctor eliminado con éxito.');
+                }
+                    </code></pre>
+                    <p><strong>En la Vista index:</strong> Se muestra un botón de eliminar para cada doctor, el cual llama al método destroy.</p>
+                
+                    <h4>5. Buscar Doctores</h4>
+                    <p><strong>Lógica:</strong> Filtrar doctores según criterios de búsqueda.</p>
+                    <pre><code>
+                public function search(Request $request)
+                {
+                    $query = Doctor::query();
+                
+                    if ($request->filled('nombre')) {
+                        $query->where('primer_nombre', 'like', '%' . $request->input('nombre') . '%');
+                    }
+                
+                    if ($request->filled('especialidad_id')) {
+                        $query->where('especialidad_id', $request->input('especialidad_id'));
+                    }
+                
+                    $doctores = $query->paginate(10);
+                
+                    return view('doctores.index', compact('doctores'));
+                }
+                    </code></pre>
+                    <p><strong>En la Vista index:</strong> Se incluye un formulario de búsqueda para filtrar los doctores por nombre o especialidad.</p>
+                
+                    <h4>6. Mostrar Doctores por Especialidad</h4>
+                    <p><strong>Lógica:</strong> Obtener doctores según la especialidad seleccionada.</p>
+                    <pre><code>
+                public function showBySpecialty($especialidad_id)
+                {
+                    $especialidad = Especialidad::findOrFail($especialidad_id);
+                    $doctores = $especialidad->doctores()->paginate(10);
+                
+                    return view('doctores.index', compact('doctores'));
+                }
+                    </code></pre>
+                    <p><strong>En la Vista index:</strong> Se puede filtrar la lista de doctores por especialidad.</p>
+                
+                    <h4>7. Validación de Campos</h4>
+                    <p><strong>Lógica:</strong> Validar campos específicos al crear o actualizar doctores.</p>
+                    <pre><code>
+                public function validateDoctor(Request $request)
+                {
+                    $request->validate([
+                        'email' => 'required|email|unique:doctores,email',
+                        'telefono' => 'required|numeric|digits:10',
+                    ]);
+                
+                    // Lógica para procesar los datos válidos
+                }
+                    </code></pre>
+                    <p><strong>En la Vista create y edit:</strong> Se muestra cómo el sistema valida los datos ingresados por el usuario.</p>
+                
+                    <h4>8. Mostrar Doctores en Orden Alfabético</h4>
+                    <p><strong>Lógica:</strong> Obtener doctores ordenados por nombre.</p>
+                    <pre><code>
+                public function index()
+                {
+                    $doctores = Doctor::orderBy('primer_nombre')->paginate(10);
+                    return view('doctores.index', compact('doctores'));
+                }
+                    </code></pre>
+                    <p><strong>En la Vista index:</strong> Los doctores se muestran ordenados alfabéticamente por nombre.</p>
+                
+                    <h4>9. Mostrar Doctores con Más de X Años de Experiencia</h4>
+                    <p><strong>Lógica:</strong> Filtrar doctores según los años de experiencia.</p>
+                    <pre><code>
+                public function showExperiencedDoctors($years)
+                {
+                    $doctores = Doctor::where('years_experience', '>', $years)->paginate(10);
+                    return view('doctores.index', compact('doctores'));
+                }
+                    </code></pre>
+                    <p><strong>En la Vista index:</strong> Se muestra una lista de doctores con más de una cierta cantidad de años de experiencia.</p>
+                
+                    <h4>10. Generar Reporte de Doctores</h4>
+                    <p><strong>Lógica:</strong> Generar un reporte de doctores en formato PDF o Excel.</p>
+                    <pre><code>
+                public function generateReport()
+                {
+                    $doctores = Doctor::all();
+                    // Lógica para generar y descargar el reporte
+                    // Por ejemplo, usando una biblioteca de PDF
+                }
+                    </code></pre>
+                    <p><strong>En la Vista index:</strong> Se puede incluir un botón para generar y descargar el reporte.</p>
+                </section>
+
+                <section id="mathematical-operations">
+                    <h2>Aplicación de Operadores y Lógica Matemática en el Controlador</h2>
+                    
+                    <h3>1. Doctores con Más de X Años de Experiencia</h3>
+                    <h4>Controlador:</h4>
+                    <pre><code>public function index()
+                {
+                    $years = 5; // Número de años de experiencia
+                    $doctores = Doctor::where('years_experience', '>', $years)->paginate(10);
+                    return view('doctores.index', compact('doctores'));
+                }
+                    </code></pre>
+                    <h4>Vista index.blade.php:</h4>
+                    <pre><code>&lt;h1&gt;Doctores con más de {{ $years }} años de experiencia&lt;/h1&gt;
+                @foreach ($doctores as $doctor)
+                    &lt;p&gt;{{ $doctor->primer_nombre }} {{ $doctor->primer_apellido }} - {{ $doctor->years_experience }} años&lt;/p&gt;
+                @endforeach
+                    </code></pre>
+                    <p><strong>Resultado:</strong> Muestra una lista de doctores con más de 5 años de experiencia.</p>
+                    
+                    <h3>2. Doctores con Menos de X Pacientes</h3>
+                    <h4>Controlador:</h4>
+                    <pre><code>public function index()
+                {
+                    $maxPatients = 50; // Número máximo de pacientes
+                    $doctores = Doctor::has('pacientes', '<', $maxPatients)->paginate(10);
+                    return view('doctores.index', compact('doctores'));
+                }
+                    </code></pre>
+                    <h4>Vista index.blade.php:</h4>
+                    <pre><code>&lt;h1&gt;Doctores con menos de {{ $maxPatients }} pacientes&lt;/h1&gt;
+                @foreach ($doctores as $doctor)
+                    &lt;p&gt;{{ $doctor->primer_nombre }} {{ $doctor->primer_apellido }} - Pacientes: {{ $doctor->pacientes()->count() }}&lt;/p&gt;
+                @endforeach
+                    </code></pre>
+                    <p><strong>Resultado:</strong> Muestra una lista de doctores con menos de 50 pacientes.</p>
+                    
+                    <h3>3. Doctores Ordenados por Años de Experiencia Descendente</h3>
+                    <h4>Controlador:</h4>
+                    <pre><code>public function index()
+                {
+                    $doctores = Doctor::orderBy('years_experience', 'desc')->paginate(10);
+                    return view('doctores.index', compact('doctores'));
+                }
+                    </code></pre>
+                    <h4>Vista index.blade.php:</h4>
+                    <pre><code>&lt;h1&gt;Doctores Ordenados por Años de Experiencia&lt;/h1&gt;
+                @foreach ($doctores as $doctor)
+                    &lt;p&gt;{{ $doctor->primer_nombre }} {{ $doctor->primer_apellido }} - {{ $doctor->years_experience }} años&lt;/p&gt;
+                @endforeach
+                    </code></pre>
+                    <p><strong>Resultado:</strong> Muestra una lista de doctores ordenados de mayor a menor por años de experiencia.</p>
+                    
+                    <h3>4. Doctores con la Especialidad Más Frecuente</h3>
+                    <h4>Controlador:</h4>
+                    <pre><code>public function index()
+                {
+                    $especialidad_id = Doctor::select('especialidad_id')
+                                              ->groupBy('especialidad_id')
+                                              ->orderByRaw('COUNT(*) DESC')
+                                              ->pluck('especialidad_id')
+                                              ->first();
+                
+                    $doctores = Doctor::where('especialidad_id', $especialidad_id)->paginate(10);
+                    return view('doctores.index', compact('doctores'));
+                }
+                    </code></pre>
+                    <h4>Vista index.blade.php:</h4>
+                    <pre><code>&lt;h1&gt;Doctores con la Especialidad Más Frecuente&lt;/h1&gt;
+                @foreach ($doctores as $doctor)
+                    &lt;p&gt;{{ $doctor->primer_nombre }} {{ $doctor->primer_apellido }} - Especialidad ID: {{ $doctor->especialidad_id }}&lt;/p&gt;
+                @endforeach
+                    </code></pre>
+                    <p><strong>Resultado:</strong> Muestra doctores de la especialidad que más frecuentemente se repite en la base de datos.</p>
+                    
+                    <h3>5. Doctores con Salario Mayor que el Promedio</h3>
+                    <h4>Controlador:</h4>
+                    <pre><code>public function index()
+                {
+                    $averageSalary = Doctor::avg('salario');
+                    $doctores = Doctor::where('salario', '>', $averageSalary)->paginate(10);
+                    return view('doctores.index', compact('doctores'));
+                }
+                    </code></pre>
+                    <h4>Vista index.blade.php:</h4>
+                    <pre><code>&lt;h1&gt;Doctores con Salario Mayor que el Promedio&lt;/h1&gt;
+                @foreach ($doctores as $doctor)
+                    &lt;p&gt;{{ $doctor->primer_nombre }} {{ $doctor->primer_apellido }} - Salario: {{ $doctor->salario }}&lt;/p&gt;
+                @endforeach
+                    </code></pre>
+                    <p><strong>Resultado:</strong> Muestra doctores que ganan más que el salario promedio de todos los doctores.</p>
+                    
+                    <h3>6. Doctores que Han Sido Contratados en el Último Año</h3>
+                    <h4>Controlador:</h4>
+                    <pre><code>public function index()
+                {
+                    $lastYear = now()->subYear()->format('Y-m-d');
+                    $doctores = Doctor::where('fecha_contratacion', '>=', $lastYear)->paginate(10);
+                    return view('doctores.index', compact('doctores'));
+                }
+                    </code></pre>
+                    <h4>Vista index.blade.php:</h4>
+                    <pre><code>&lt;h1&gt;Doctores Contratados en el Último Año&lt;/h1&gt;
+                @foreach ($doctores as $doctor)
+                    &lt;p&gt;{{ $doctor->primer_nombre }} {{ $doctor->primer_apellido }} - Fecha de Contratación: {{ $doctor->fecha_contratacion }}&lt;/p&gt;
+                @endforeach
+                    </code></pre>
+                    <p><strong>Resultado:</strong> Muestra doctores contratados en el último año.</p>
+                    
+                    <h3>7. Doctor con el Mayor Número de Consultas</h3>
+                    <h4>Controlador:</h4>
+                    <pre><code>public function show($id)
+                {
+                    $doctor = Doctor::withCount('consultas')->findOrFail($id);
+                    return view('doctores.show', compact('doctor'));
+                }
+                    </code></pre>
+                    <h4>Vista show.blade.php:</h4>
+                    <pre><code>&lt;h1&gt;Detalles del Doctor&lt;/h1&gt;
+                &lt;p&gt;{{ $doctor->primer_nombre }} {{ $doctor->primer_apellido }}&lt;/p&gt;
+                &lt;p&gt;Consultas Realizadas: {{ $doctor->consultas_count }}&lt;/p&gt;
+                    </code></pre>
+                    <p><strong>Resultado:</strong> Muestra el número de consultas realizadas por un doctor específico.</p>
+                    
+                    <h3>8. Doctores con la Mayor Cantidad de Pacientes</h3>
+                    <h4>Controlador:</h4>
+                    <pre><code>public function index()
+                {
+                    $doctores = Doctor::withCount('pacientes')->orderBy('pacientes_count', 'desc')->paginate(10);
+                    return view('doctores.index', compact('doctores'));
+                }
+                    </code></pre>
+                    <h4>Vista index.blade.php:</h4>
+                    <pre><code>&lt;h1&gt;Doctores con Mayor Cantidad de Pacientes&lt;/h1&gt;
+                @foreach ($doctores as $doctor)
+                    &lt;p&gt;{{ $doctor->primer_nombre }} {{ $doctor->primer_apellido }} - Pacientes: {{ $doctor->pacientes_count }}&lt;/p&gt;
+                @endforeach
+                    </code></pre>
+                    <p><strong>Resultado:</strong> Muestra doctores ordenados por la cantidad de pacientes, de mayor a menor.</p>
+                    
+                    <h3>9. Doctores con Salario Dentro de un Rango Específico</h3>
+                    <h4>Controlador:</h4>
+                    <pre><code>public function index()
+                {
+                    $minSalary = 50000;
+                    $maxSalary = 100000;
+                    $doctores = Doctor::whereBetween('salario', [$minSalary, $maxSalary])->paginate(10);
+                    return view('doctores.index', compact('doctores'));
+                }
+                    </code></pre>
+                    <h4>Vista index.blade.php:</h4>
+                    <pre><code>&lt;h1&gt;Doctores con Salario entre {{ $minSalary }} y {{ $maxSalary }}&lt;/h1&gt;
+                @foreach ($doctores as $doctor)
+                    &lt;p&gt;{{ $doctor->primer_nombre }} {{ $doctor->primer_apellido }} - Salario: {{ $doctor->salario }}&lt;/p&gt;
+                @endforeach
+                    </code></pre>
+                    <p><strong>Resultado:</strong> Muestra doctores cuyo salario está dentro del rango especificado.</p>
+                    
+                    <h3>10. Doctores con Pacientes en un Departamento Específico</h3>
+                    <h4>Controlador:</h4>
+                    <pre><code>public function index()
+                {
+                    $departamentoId = 1; // ID del departamento específico
+                    $doctores = Doctor::whereHas('pacientes', function ($query) use ($departamentoId) {
+                        $query->where('departamento_id', $departamentoId);
+                    })->paginate(10);
+                    return view('doctores.index', compact('doctores'));
+                }
+                    </code></pre>
+                    <h4>Vista index.blade.php:</h4>
+                    <pre><code>&lt;h1&gt;Doctores con Pacientes en el Departamento ID: {{ $departamentoId }}&lt;/h1&gt;
+                @foreach ($doctores as $doctor)
+                    &lt;p&gt;{{ $doctor->primer_nombre }} {{ $doctor->primer_apellido }}&lt;/p&gt;
+                @endforeach
+                    </code></pre>
+                    <p><strong>Resultado:</strong> Muestra doctores que tienen pacientes en el departamento con el ID especificado.</p>
+
+
+                    
+                </section>
+
+                <section id="data-comparisons">
+                    <div class="row">
+                        <div class="col-lg-10">
+                            <h2>Comparación de Datos y Cálculos Detallados</h2>
+                
+                            <article>
+                                <h3>1. Doctores con Salario Dentro del Rango del Percentil 25 a 75</h3>
+                                <p><strong>Qué hace:</strong> Este código encuentra el rango del percentil 25 al 75 para el salario de los doctores y muestra aquellos cuyo salario se encuentra en ese rango.</p>
+                                <p><strong>Controlador:</strong></p>
+                                <pre><code>
+                        public function index()
+                        {
+                            $salaries = Doctor::pluck('salario');
+                            $percentile25 = $salaries->percentile(25);
+                            $percentile75 = $salaries->percentile(75);
+                        
+                            $doctores = Doctor::whereBetween('salario', [$percentile25, $percentile75])->paginate(10);
+                            return view('doctores.index', compact('doctores', 'percentile25', 'percentile75'));
+                        }
+                                </code></pre>
+                                <p><strong>Vista:</strong></p>
+                                <pre><code>
+                        <h1>Doctores con Salario en el Percentil 25 a 75</h1>
+                        <p>Percentil 25: {{ $percentile25 }}</p>
+                        <p>Percentil 75: {{ $percentile75 }}</p>
+                        @foreach ($doctores as $doctor)
+                            <p>{{ $doctor->primer_nombre }} {{ $doctor->primer_apellido }} - Salario: {{ $doctor->salario }}</p>
+                        @endforeach
+                                </code></pre>
+                                <p><strong>Resultado:</strong> Muestra doctores cuyo salario está dentro del rango del percentil 25 al 75.</p>
+                            </article>
+                        
+                            <article>
+                                <h3>2. Total de Pacientes y Promedio de Edad por Especialidad</h3>
+                                <p><strong>Qué hace:</strong> Este código calcula el total de pacientes y la edad promedio de los pacientes para cada especialidad.</p>
+                                <p><strong>Controlador:</strong></p>
+                                <pre><code>
+                        public function index()
+                        {
+                            $especialidades = Especialidad::withCount('doctores')
+                                ->with('doctores.pacientes')
+                                ->get()
+                                ->map(function($especialidad) {
+                                    $totalPacientes = $especialidad->doctores->sum(function($doctor) {
+                                        return $doctor->pacientes->count();
+                                    });
+                                    $averageAge = $especialidad->doctores->flatMap->pacientes->avg(function($paciente) {
+                                        return now()->diffInYears($paciente->fecha_nacimiento);
+                                    });
+                                    $especialidad->total_pacientes = $totalPacientes;
+                                    $especialidad->average_age = $averageAge;
+                                    return $especialidad;
+                                });
+                        
+                            return view('doctores.index', compact('especialidades'));
+                        }
+                                </code></pre>
+                                <p><strong>Vista:</strong></p>
+                                <pre><code>
+                        <h1>Especialidades y Pacientes</h1>
+                        @foreach ($especialidades as $especialidad)
+                            <p>Especialidad: {{ $especialidad->nombre }} - Total Pacientes: {{ $especialidad->total_pacientes }} - Edad Promedio: {{ $especialidad->average_age }}</p>
+                        @endforeach
+                                </code></pre>
+                                <p><strong>Resultado:</strong> Muestra el total de pacientes y la edad promedio de los pacientes por especialidad.</p>
+                            </article>
+                        
+                            <article>
+                                <h3>3. Doctores que Superan el Promedio de Consultas</h3>
+                                <p><strong>Qué hace:</strong> Este código encuentra el promedio de consultas y muestra los doctores que tienen un número de consultas superior al promedio.</p>
+                                <p><strong>Controlador:</strong></p>
+                                <pre><code>
+                        public function index()
+                        {
+                            $averageConsultations = Doctor::withCount('consultas')->avg('consultas_count');
+                            $doctores = Doctor::withCount('consultas')
+                                              ->having('consultas_count', '>', $averageConsultations)
+                                              ->paginate(10);
+                            return view('doctores.index', compact('doctores', 'averageConsultations'));
+                        }
+                                </code></pre>
+                                <p><strong>Vista:</strong></p>
+                                <pre><code>
+                        <h1>Doctores con Consultas por Encima del Promedio</h1>
+                        <p>Promedio de Consultas: {{ $averageConsultations }}</p>
+                        @foreach ($doctores as $doctor)
+                            <p>{{ $doctor->primer_nombre }} {{ $doctor->primer_apellido }} - Consultas: {{ $doctor->consultas_count }}</p>
+                        @endforeach
+                                </code></pre>
+                                <p><strong>Resultado:</strong> Muestra doctores con un número de consultas superior al promedio.</p>
+                            </article>
+                        
+                            <article>
+                                <h3>4. Doctores con Salario Mayor al del Doctor Específico</h3>
+                                <p><strong>Qué hace:</strong> Este código muestra doctores cuyo salario es mayor que el del doctor específico.</p>
+                                <p><strong>Controlador:</strong></p>
+                                <pre><code>
+                        public function show($id)
+                        {
+                            $doctor = Doctor::findOrFail($id);
+                            $doctores = Doctor::where('salario', '>', $doctor->salario)->paginate(10);
+                            return view('doctores.show', compact('doctor', 'doctores'));
+                        }
+                                </code></pre>
+                                <p><strong>Vista:</strong></p>
+                                <pre><code>
+                        <h1>Detalles del Doctor</h1>
+                        <p>{{ $doctor->primer_nombre }} {{ $doctor->primer_apellido }} - Salario: {{ $doctor->salario }}</p>
+                        <h2>Doctores con Salario Mayor</h2>
+                        @foreach ($doctores as $doc)
+                            <p>{{ $doc->primer_nombre }} {{ $doc->primer_apellido }} - Salario: {{ $doc->salario }}</p>
+                        @endforeach
+                                </code></pre>
+                                <p><strong>Resultado:</strong> Muestra doctores cuyo salario es mayor que el del doctor específico.</p>
+                            </article>
+                        
+                            <article>
+                                <h3>5. Doctores en un Rango de Edad</h3>
+                                <p><strong>Qué hace:</strong> Este código muestra doctores que tienen entre 30 y 50 años de edad.</p>
+                                <p><strong>Controlador:</strong></p>
+                                <pre><code>
+                        public function index()
+                        {
+                            $minAge = 30;
+                            $maxAge = 50;
+                            $doctores = Doctor::whereBetweenRaw('YEAR(CURDATE()) - YEAR(fecha_nacimiento)', [$minAge, $maxAge])->paginate(10);
+                            return view('doctores.index', compact('doctores'));
+                        }
+                                </code></pre>
+                                <p><strong>Vista:</strong></p>
+                                <pre><code>
+                        <h1>Doctores en el Rango de Edad de {{ $minAge }} a {{ $maxAge }} Años</h1>
+                        @foreach ($doctores as $doctor)
+                            <p>{{ $doctor->primer_nombre }} {{ $doctor->primer_apellido }} - Edad: {{ now()->diffInYears($doctor->fecha_nacimiento) }}</p>
+                        @endforeach
+                                </code></pre>
+                                <p><strong>Resultado:</strong> Muestra doctores que tienen entre 30 y 50 años de edad.</p>
+                            </article>
+                        
+                            <article>
+                                <h3>6. Total de Doctores por Departamento</h3>
+                                <p><strong>Qué hace:</strong> Este código muestra el número total de doctores por cada departamento.</p>
+                                <p><strong>Controlador:</strong></p>
+                                <pre><code>
+                        public function index()
+                        {
+                            $departamentos = Departamento::withCount('doctores')->get();
+                            return view('doctores.index', compact('departamentos'));
+                        }
+                                </code></pre>
+                                <p><strong>Vista:</strong></p>
+                                <pre><code>
+                        <h1>Total de Doctores por Departamento</h1>
+                        @foreach ($departamentos as $departamento)
+                            <p>Departamento: {{ $departamento->nombre }} - Doctores: {{ $departamento->doctores_count }}</p>
+                        @endforeach
+                                </code></pre>
+                                <p><strong>Resultado:</strong> Muestra el número total de doctores por cada departamento.</p>
+                            </article>
+                        </div>
+                    </div>
+                    
+                
+                </section>
+
+                <section id="doctor-examples">
+                    <h2>Ejemplos de Consultas para Doctores</h2>
+                
+                    <article>
+                        <h3>1. Doctores con Más Pacientes que el Promedio</h3>
+                        <p><strong>Qué hace:</strong> Este código encuentra el promedio de pacientes por doctor y muestra aquellos que tienen más pacientes que el promedio.</p>
+                        <p><strong>Controlador:</strong></p>
+                        <pre><code>
+                public function index()
+                {
+                    $averagePatients = Doctor::withCount('pacientes')->avg('pacientes_count');
+                    $doctores = Doctor::withCount('pacientes')
+                                      ->having('pacientes_count', '>', $averagePatients)
+                                      ->paginate(10);
+                    return view('doctores.index', compact('doctores', 'averagePatients'));
+                }
+                        </code></pre>
+                        <p><strong>Vista index.blade.php:</strong></p>
+                        <pre><code>
+                <h1>Doctores con Más Pacientes que el Promedio</h1>
+                <p>Promedio de Pacientes: {{ $averagePatients }}</p>
+                @foreach ($doctores as $doctor)
+                    <p>{{ $doctor->primer_nombre }} {{ $doctor->primer_apellido }} - Pacientes: {{ $doctor->pacientes_count }}</p>
+                @endforeach
+                        </code></pre>
+                        <p><strong>Resultado:</strong> Muestra doctores con un número de pacientes superior al promedio.</p>
+                    </article>
+                
+                    <article>
+                        <h3>2. Doctor con el Salario Máximo y Mínimo</h3>
+                        <p><strong>Qué hace:</strong> Este código encuentra el doctor con el salario máximo y el mínimo.</p>
+                        <p><strong>Controlador:</strong></p>
+                        <pre><code>
+                public function index()
+                {
+                    $maxSalaryDoctor = Doctor::orderBy('salario', 'desc')->first();
+                    $minSalaryDoctor = Doctor::orderBy('salario', 'asc')->first();
+                    return view('doctores.index', compact('maxSalaryDoctor', 'minSalaryDoctor'));
+                }
+                        </code></pre>
+                        <p><strong>Vista index.blade.php:</strong></p>
+                        <pre><code>
+                <h1>Doctor con el Salario Máximo y Mínimo</h1>
+                <p>Doctor con Salario Máximo: {{ $maxSalaryDoctor->primer_nombre }} {{ $maxSalaryDoctor->primer_apellido }} - Salario: {{ $maxSalaryDoctor->salario }}</p>
+                <p>Doctor con Salario Mínimo: {{ $minSalaryDoctor->primer_nombre }} {{ $minSalaryDoctor->primer_apellido }} - Salario: {{ $minSalaryDoctor->salario }}</p>
+                        </code></pre>
+                        <p><strong>Resultado:</strong> Muestra el doctor con el salario máximo y el mínimo.</p>
+                    </article>
+                
+                    <article>
+                        <h3>3. Doctores en Especialidades que Tienen Más de 5 Doctores</h3>
+                        <p><strong>Qué hace:</strong> Este código encuentra especialidades con más de 5 doctores y muestra los doctores que pertenecen a esas especialidades.</p>
+                        <p><strong>Controlador:</strong></p>
+                        <pre><code>
+                public function index()
+                {
+                    $especialidades = Especialidad::has('doctores', '>', 5)->get();
+                    $doctores = Doctor::whereIn('especialidad_id', $especialidades->pluck('id'))->paginate(10);
+                    return view('doctores.index', compact('doctores', 'especialidades'));
+                }
+                        </code></pre>
+                        <p><strong>Vista index.blade.php:</strong></p>
+                        <pre><code>
+                <h1>Doctores en Especialidades con Más de 5 Doctores</h1>
+                @foreach ($especialidades as $especialidad)
+                    <p>Especialidad: {{ $especialidad->nombre }} - Doctores: {{ $especialidad->doctores_count }}</p>
+                @endforeach
+                @foreach ($doctores as $doctor)
+                    <p>{{ $doctor->primer_nombre }} {{ $doctor->primer_apellido }}</p>
+                @endforeach
+                        </code></pre>
+                        <p><strong>Resultado:</strong> Muestra doctores que pertenecen a especialidades con más de 5 doctores.</p>
+                    </article>
+                
+                    <article>
+                        <h3>4. Doctores con Consultas en el Último Año</h3>
+                        <p><strong>Qué hace:</strong> Este código muestra doctores que han tenido consultas en el último año.</p>
+                        <p><strong>Controlador:</strong></p>
+                        <pre><code>
+                public function index()
+                {
+                    $doctores = Doctor::whereHas('consultas', function ($query) {
+                        $query->whereYear('fecha_consulta', now()->year);
+                    })->paginate(10);
+                    return view('doctores.index', compact('doctores'));
+                }
+                        </code></pre>
+                        <p><strong>Vista index.blade.php:</strong></p>
+                        <pre><code>
+                <h1>Doctores con Consultas en el Último Año</h1>
+                @foreach ($doctores as $doctor)
+                    <p>{{ $doctor->primer_nombre }} {{ $doctor->primer_apellido }}</p>
+                @endforeach
+                        </code></pre>
+                        <p><strong>Resultado:</strong> Muestra doctores que han tenido consultas en el último año.</p>
+                    </article>
+                
+                    <article>
+                        <h3>5. Doctores que No Han Realizado Consultas en el Último Año</h3>
+                        <p><strong>Qué hace:</strong> Este código muestra doctores que no han realizado consultas en el último año.</p>
+                        <p><strong>Controlador:</strong></p>
+                        <pre><code>
+                public function index()
+                {
+                    $doctores = Doctor::doesntHave('consultas', 'and', function ($query) {
+                        $query->whereYear('fecha_consulta', now()->year);
+                    })->paginate(10);
+                    return view('doctores.index', compact('doctores'));
+                }
+                        </code></pre>
+                        <p><strong>Vista index.blade.php:</strong></p>
+                        <pre><code>
+                <h1>Doctores que No Han Realizado Consultas en el Último Año</h1>
+                @foreach ($doctores as $doctor)
+                    <p>{{ $doctor->primer_nombre }} {{ $doctor->primer_apellido }}</p>
+                @endforeach
+                        </code></pre>
+                        <p><strong>Resultado:</strong> Muestra doctores que no han realizado consultas en el último año.</p>
+                    </article>
+                
+                    <article>
+                        <h3>6. Doctores con Especialidades Específicas</h3>
+                        <p><strong>Qué hace:</strong> Este código muestra doctores con una especialidad específica.</p>
+                        <p><strong>Controlador:</strong></p>
+                        <pre><code>
+                public function index()
+                {
+                    $especialidadId = 1; // Ejemplo de ID de especialidad
+                    $doctores = Doctor::where('especialidad_id', $especialidadId)->paginate(10);
+                    return view('doctores.index', compact('doctores'));
+                }
+                        </code></pre>
+                        <p><strong>Vista index.blade.php:</strong></p>
+                        <pre><code>
+                <h1>Doctores con la Especialidad Específica</h1>
+                @foreach ($doctores as $doctor)
+                    <p>{{ $doctor->primer_nombre }} {{ $doctor->primer_apellido }}</p>
+                @endforeach
+                        </code></pre>
+                        <p><strong>Resultado:</strong> Muestra doctores con una especialidad específica.</p>
+                    </article>
+                
+                    <article>
+                        <h3>7. Doctores con Más de N Años de Experiencia</h3>
+                        <p><strong>Qué hace:</strong> Este código muestra doctores que tienen más de un número específico de años de experiencia.</p>
+                        <p><strong>Controlador:</strong></p>
+                        <pre><code>
+                public function index()
+                {
+                    $yearsOfExperience = 10; // Ejemplo de número de años de experiencia
+                    $doctores = Doctor::whereRaw('YEAR(CURDATE()) - YEAR(fecha_contratacion) > ?', [$yearsOfExperience])->paginate(10);
+                    return view('doctores.index', compact('doctores'));
+                }
+                        </code></pre>
+                        <p><strong>Vista index.blade.php:</strong></p>
+                        <pre><code>
+                <h1>Doctores con Más de {{ $yearsOfExperience }} Años de Experiencia</h1>
+                @foreach ($doctores as $doctor)
+                    <p>{{ $doctor->primer_nombre }} {{ $doctor->primer_apellido }} - Experiencia: {{ now()->diffInYears($doctor->fecha_contratacion) }} años</p>
+                @endforeach
+                        </code></pre>
+                        <p><strong>Resultado:</strong> Muestra doctores con más de 10 años de experiencia.</p>
+                    </article>
+                
+                    <article>
+                        <h3>8. Doctores que No Tienen Pacientes</h3>
+                        <p><strong>Qué hace:</strong> Este código muestra doctores que no tienen pacientes asociados.</p>
+                        <p><strong>Controlador:</strong></p>
+                        <pre><code>
+                public function index()
+                {
+                    $doctores = Doctor::doesntHave('pacientes')->paginate(10);
+                    return view('doctores.index', compact('doctores'));
+                }
+                        </code></pre>
+                        <p><strong>Vista index.blade.php:</strong></p>
+                        <pre><code>
+                <h1>Doctores que No Tienen Pacientes</h1>
+                @foreach ($doctores as $doctor)
+                    <p>{{ $doctor->primer_nombre }} {{ $doctor->primer_apellido }}</p>
+                @endforeach
+                        </code></pre>
+                        <p><strong>Resultado:</strong> Muestra doctores que no tienen pacientes asociados.</p>
+                    </article>
+                
+                    <article>
+                        <h3>9. Doctores con Menos de N Pacientes</h3>
+                        <p><strong>Qué hace:</strong> Este código muestra doctores que tienen menos de un número específico de pacientes.</p>
+                        <p><strong>Controlador:</strong></p>
+                        <pre><code>
+                public function index()
+                {
+                    $maxPatients = 5; // Ejemplo de número máximo de pacientes
+                    $doctores = Doctor::withCount('pacientes')
+                                      ->having('pacientes_count', '<', $maxPatients)
+                                      ->paginate(10);
+                    return view('doctores.index', compact('doctores'));
+                }
+                        </code></pre>
+                        <p><strong>Vista index.blade.php:</strong></p>
+                        <pre><code>
+                <h1>Doctores con Menos de {{ $maxPatients }} Pacientes</h1>
+                @foreach ($doctores as $doctor)
+                    <p>{{ $doctor->primer_nombre }} {{ $doctor->primer_apellido }} - Pacientes: {{ $doctor->pacientes_count }}</p>
+                @endforeach
+                        </code></pre>
+                        <p><strong>Resultado:</strong> Muestra doctores con menos de 5 pacientes.</p>
+                    </article>
+                
+                </section>
+            
+                <section id="paciente-examples">
+              
+              
+                        <h3>1. Promedio de Edad de Pacientes</h3>
+                        <p><strong>Qué hace:</strong> Este código calcula y muestra la edad promedio de todos los pacientes.</p>
+                        <p><strong>Controlador:</strong></p>
+                        <pre><code>
+                public function index()
+                {
+                    $averageAge = Paciente::avg(DB::raw('YEAR(CURDATE()) - YEAR(fecha_nacimiento)'));
+                    $pacientes = Paciente::paginate(10);
+                    return view('pacientes.index', compact('pacientes', 'averageAge'));
+                }
+                        </code></pre>
+                        <p><strong>Vista index.blade.php:</strong></p>
+                        <pre><code>
+                <h1>Listado de Pacientes</h1>
+                <p>Edad Promedio: {{ $averageAge }} años</p>
+                @foreach ($pacientes as $paciente)
+                    <p>{{ $paciente->primer_nombre }} {{ $paciente->primer_apellido }} - Edad: {{ now()->diffInYears($paciente->fecha_nacimiento) }}</p>
+                @endforeach
+                        </code></pre>
+                        <p><strong>Resultado:</strong> Muestra la edad promedio de todos los pacientes.</p>
+                   
+                
+                    <article>
+                        <h3>2. Número Total de Pacientes por Médico</h3>
+                        <p><strong>Qué hace:</strong> Este código muestra el número de pacientes asignados a cada médico.</p>
+                        <p><strong>Controlador:</strong></p>
+                        <pre><code>
+                public function index()
+                {
+                    $medicos = Medico::withCount('pacientes')->get();
+                    $pacientes = Paciente::paginate(10);
+                    return view('pacientes.index', compact('pacientes', 'medicos'));
+                }
+                        </code></pre>
+                        <p><strong>Vista index.blade.php:</strong></p>
+                        <pre><code>
+                <h1>Listado de Pacientes y Pacientes por Médico</h1>
+                @foreach ($medicos as $medico)
+                    <p>Médico: {{ $medico->nombre }} - Pacientes: {{ $medico->pacientes_count }}</p>
+                @endforeach
+                @foreach ($pacientes as $paciente)
+                    <p>{{ $paciente->primer_nombre }} {{ $paciente->primer_apellido }}</p>
+                @endforeach
+                        </code></pre>
+                        <p><strong>Resultado:</strong> Muestra el número de pacientes asignados a cada médico.</p>
+                    </article>
+                
+                    <article>
+                        <h3>3. Paciente con Mayor Número de Consultas</h3>
+                        <p><strong>Qué hace:</strong> Este código muestra el número total de consultas de un paciente específico.</p>
+                        <p><strong>Controlador:</strong></p>
+                        <pre><code>
+                public function show($id)
+                {
+                    $paciente = Paciente::withCount('consultas')->findOrFail($id);
+                    return view('pacientes.show', compact('paciente'));
+                }
+                        </code></pre>
+                        <p><strong>Vista show.blade.php:</strong></p>
+                        <pre><code>
+                <h1>Detalles del Paciente</h1>
+                <p>{{ $paciente->primer_nombre }} {{ $paciente->primer_apellido }}</p>
+                <p>Consultas Realizadas: {{ $paciente->consultas_count }}</p>
+                        </code></pre>
+                        <p><strong>Resultado:</strong> Muestra el número total de consultas de un paciente específico.</p>
+                    </article>
+                
+                    <article>
+                        <h3>4. Cálculo de Edad del Paciente</h3>
+                        <p><strong>Qué hace:</strong> Este código calcula y muestra la edad del paciente a partir de su fecha de nacimiento.</p>
+                        <p><strong>Controlador:</strong></p>
+                        <pre><code>
+                public function show($id)
+                {
+                    $paciente = Paciente::findOrFail($id);
+                    $age = now()->diffInYears($paciente->fecha_nacimiento);
+                    return view('pacientes.show', compact('paciente', 'age'));
+                }
+                        </code></pre>
+                        <p><strong>Vista show.blade.php:</strong></p>
+                        <pre><code>
+                <h1>Detalles del Paciente</h1>
+                <p>{{ $paciente->primer_nombre }} {{ $paciente->primer_apellido }}</p>
+                <p>Edad: {{ $age }} años</p>
+                        </code></pre>
+                        <p><strong>Resultado:</strong> Muestra la edad calculada a partir de la fecha de nacimiento del paciente.</p>
+                    </article>
+                
+                    <article>
+                        <h3>5. Pacientes con Edad Dentro del Rango del Percentil 25 a 75</h3>
+                        <p><strong>Qué hace:</strong> Este código muestra pacientes cuya edad está dentro del rango del percentil 25 al 75.</p>
+                        <p><strong>Controlador:</strong></p>
+                        <pre><code>
+                public function index()
+                {
+                    $ages = Paciente::pluck(DB::raw('YEAR(CURDATE()) - YEAR(fecha_nacimiento)'));
+                    $percentile25 = $ages->percentile(25);
+                    $percentile75 = $ages->percentile(75);
+                
+                    $pacientes = Paciente::whereBetween(DB::raw('YEAR(CURDATE()) - YEAR(fecha_nacimiento)'), [$percentile25, $percentile75])->paginate(10);
+                    return view('pacientes.index', compact('pacientes', 'percentile25', 'percentile75'));
+                }
+                        </code></pre>
+                        <p><strong>Vista index.blade.php:</strong></p>
+                        <pre><code>
+                <h1>Pacientes con Edad en el Percentil 25 a 75</h1>
+                <p>Percentil 25: {{ $percentile25 }}</p>
+                <p>Percentil 75: {{ $percentile75 }}</p>
+                @foreach ($pacientes as $paciente)
+                    <p>{{ $paciente->primer_nombre }} {{ $paciente->primer_apellido }} - Edad: {{ now()->diffInYears($paciente->fecha_nacimiento) }}</p>
+                @endforeach
+                        </code></pre>
+                        <p><strong>Resultado:</strong> Muestra pacientes cuya edad está dentro del rango del percentil 25 al 75.</p>
+                    </article>
+                
+                    <article>
+                        <h3>6. Total de Pacientes por Especialidad Médica</h3>
+                        <p><strong>Qué hace:</strong> Este código muestra el número de pacientes por especialidad médica.</p>
+                        <p><strong>Controlador:</strong></p>
+                        <pre><code>
+                public function index()
+                {
+                    $especialidades = Especialidad::withCount('pacientes')->get();
+                    return view('pacientes.index', compact('especialidades'));
+                }
+                        </code></pre>
+                        <p><strong>Vista index.blade.php:</strong></p>
+                        <pre><code>
+                <h1>Total de Pacientes por Especialidad</h1>
+                @foreach ($especialidades as $especialidad)
+                    <p>Especialidad: {{ $especialidad->nombre }} - Pacientes: {{ $especialidad->pacientes_count }}</p>
+                @endforeach
+                        </code></pre>
+                        <p><strong>Resultado:</strong> Muestra el número de pacientes por especialidad médica.</p>
+                    </article>
+                
+                    <article>
+                        <h3>7. Pacientes con Más Consultas que el Promedio</h3>
+                        <p><strong>Qué hace:</strong> Este código muestra pacientes con un número de consultas superior al promedio.</p>
+                        <p><strong>Controlador:</strong></p>
+                        <pre><code>
+                public function index()
+                {
+                    $averageConsultations = Paciente::withCount('consultas')->avg('consultas_count');
+                    $pacientes = Paciente::withCount('consultas')
+                                         ->having('consultas_count', '>', $averageConsultations)
+                                         ->paginate(10);
+                    return view('pacientes.index', compact('pacientes', 'averageConsultations'));
+                }
+                        </code></pre>
+                        <p><strong>Vista index.blade.php:</strong></p>
+                        <pre><code>
+                <h1>Pacientes con Más Consultas que el Promedio</h1>
+                <p>Promedio de Consultas: {{ $averageConsultations }}</p>
+                @foreach ($pacientes as $paciente)
+                    <p>{{ $paciente->primer_nombre }} {{ $paciente->primer_apellido }} - Consultas: {{ $paciente->consultas_count }}</p>
+                @endforeach
+                        </code></pre>
+                        <p><strong>Resultado:</strong> Muestra pacientes con un número de consultas superior al promedio.</p>
+                    </article>
+                
+                    <article>
+                        <h3>8. Pacientes con Edad Mayor a la del Paciente Específico</h3>
+                        <p><strong>Qué hace:</strong> Este código muestra pacientes cuya edad es mayor que la del paciente específico.</p>
+                        <p><strong>Controlador:</strong></p>
+                        <pre><code>
+                public function show($id)
+                {
+                    $paciente = Paciente::findOrFail($id);
+                    $doctores = Paciente::where(DB::raw('YEAR(CURDATE()) - YEAR(fecha_nacimiento)'), '>', now()->diffInYears($paciente->fecha_nacimiento))->paginate(10);
+                    return view('pacientes.show', compact('paciente', 'doctores'));
+                }
+                        </code></pre>
+                        <p><strong>Vista show.blade.php:</strong></p>
+                        <pre><code>
+                <h1>Detalles del Paciente</h1>
+                <p>{{ $paciente->primer_nombre }} {{ $paciente->primer_apellido }} - Edad: {{ now()->diffInYears($paciente->fecha_nacimiento) }}</p>
+                <h2>Pacientes con Edad Mayor</h2>
+                @foreach ($doctores as $doc)
+                    <p>{{ $doc->primer_nombre }} {{ $doc->primer_apellido }} - Edad: {{ now()->diffInYears($doc->fecha_nacimiento) }}</p>
+                @endforeach
+                        </code></pre>
+                        <p><strong>Resultado:</strong> Muestra pacientes cuya edad es mayor que la del paciente específico.</p>
+                    </article>
+                
+                    <article>
+                        <h3>9. Pacientes en un Rango de Edad</h3>
+                        <p><strong>Qué hace:</strong> Este código muestra pacientes que tienen entre 30 y 50 años de edad.</p>
+                        <p><strong>Controlador:</strong></p>
+                        <pre><code>
+                public function index()
+                {
+                    $minAge = 30;
+                    $maxAge = 50;
+                    $pacientes = Paciente::whereBetween(DB::raw('YEAR(CURDATE()) - YEAR(fecha_nacimiento)'), [$minAge, $maxAge])->paginate(10);
+                    return view('pacientes.index', compact('pacientes'));
+                }
+                        </code></pre>
+                        <p><strong>Vista index.blade.php:</strong></p>
+                        <pre><code>
+                <h1>Pacientes en el Rango de Edad de {{ $minAge }} a {{ $maxAge }} Años</h1>
+                @foreach ($pacientes as $paciente)
+                    <p>{{ $paciente->primer_nombre }} {{ $paciente->primer_apellido }} - Edad: {{ now()->diffInYears($paciente->fecha_nacimiento) }}</p>
+                @endforeach
+                        </code></pre>
+                        <p><strong>Resultado:</strong> Muestra pacientes que tienen entre 30 y 50 años de edad.</p>
+                    </article>
+                
+                    <article>
+                        <h3>10. Pacientes con Menos de N Consultas</h3>
+                        <p><strong>Qué hace:</strong> Este código muestra pacientes con menos de un número específico de consultas.</p>
+                        <p><strong>Controlador:</strong></p>
+                        <pre><code>
+                public function index()
+                {
+                    $maxConsultations = 5; // Ejemplo de número máximo de consultas
+                    $pacientes = Paciente::withCount('consultas')
+                                         ->having('consultas_count', '<', $maxConsultations)
+                                         ->paginate(10);
+                    return view('pacientes.index', compact('pacientes'));
+                }
+                        </code></pre>
+                        <p><strong>Vista index.blade.php:</strong></p>
+                        <pre><code>
+                <h1>Pacientes con Menos de {{ $maxConsultations }} Consultas</h1>
+                @foreach ($pacientes as $paciente)
+                    <p>{{ $paciente->primer_nombre }} {{ $paciente->primer_apellido }} - Consultas: {{ $paciente->consultas_count }}</p>
+                @endforeach
+                        </code></pre>
+                        <p><strong>Resultado:</strong> Muestra pacientes con menos de 5 consultas.</p>
+                    </article>
+                
+                </section>
+                
+                
+                
+                
+                
+                
+
+             </div>
+      </div>
+</div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+
+        // Detectar si el usuario ya tiene una preferencia en localStorage
+        const userTheme = localStorage.getItem('theme');
+        const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+
+        const currentTheme = userTheme || systemTheme;
+
+        // Aplicar el tema al cargar la página
+        if (currentTheme === 'dark') {
+            body.classList.add('dark-mode');
+            themeToggle.classList.replace('fa-sun', 'fa-moon');
+        } else {
+            body.classList.add('light-mode');
+            themeToggle.classList.replace('fa-moon', 'fa-sun');
+        }
+
+        // Cambiar tema al presionar el ícono
+        themeToggle.addEventListener('click', function() {
+            if (body.classList.contains('light-mode')) {
+                // Cambiar a modo oscuro
+                body.classList.replace('light-mode', 'dark-mode');
+                themeToggle.classList.replace('fa-sun', 'fa-moon');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                // Cambiar a modo claro
+                body.classList.replace('dark-mode', 'light-mode');
+                themeToggle.classList.replace('fa-moon', 'fa-sun');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+    });
+</script>
+</body>
+</html>
