@@ -16,7 +16,7 @@
 
     /* Cambios para asegurarse de que el modo claro y oscuro ajusten colores de fondo y texto correctamente */
     .dark-mode .bg-light {
-        background-color: #000e2a !important;
+        background-color: #000000 !important;
         color: #f5f5f5 !important;
     }
 
@@ -30,5 +30,16 @@
         padding: 10px;
         border-radius: 5px;
         overflow-x: auto;
+    }
+     /* Estilos para resaltar el código */
+     pre, code {
+        background-color: #f5f5f5; /* Color de fondo del código */
+        border: 1px solid #ddd;    /* Borde alrededor del código */
+        padding: 10px;             /* Espaciado interno */
+        display: block;
+        color: #1e32b3;            /* Color del texto del código */
+    }
+    section {
+        margin-bottom: 20px;
     }
 
