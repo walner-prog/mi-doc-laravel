@@ -56,10 +56,39 @@
         </div>
 </nav>
 
-<div class="row mt-5">
-    <div class="col-lg-2"></div>
-    <div class="col-lg-10">
-        <section id="form-validation-laravel" class="col-lg-8">
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-6">
+        <nav class="navbar  navbar-expand-lg navbar-light bg-light fixed-top w-75 mt-5" >
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse bg-white" id="navbarNav">
+                    <ul class="navbar-nav flex-column">
+                        <li class="nav-item"><a class="nav-link" href="#form">formularios y validaciones </a></li>
+                        <li class="nav-item"><a class="nav-link" href="#form2">creacion de formularios </a></li>
+                        <li class="nav-item"><a class="nav-link" href="#form3">validaciones avanzadas</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#form4">validaciones crud laravel</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#form5">validaciones personalizadas </a></li>
+                        <li class="nav-item"><a class="nav-link" href="#form6"> migracion tabla paciente</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#form7">modelo paciente</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#form8">controlador paciente</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#form9">form edit create pacientes</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#form10">creacion de vista paciente</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#form11">tipos de validaciones </a></li> 
+                        <li class="nav-item"><a class="nav-link" href="#form12">  Formas de Mostrar el Listado de Pacientes</a></li> 
+                      
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+
+<div class="row  " style="margin-top: 100px;">
+    <div class="col-lg-4"></div>
+    <div class="col-lg-8">
+        <section id="form1" class="col-lg-8">
             <h2>Formularios y Validaciones en Laravel</h2>
         
             <p><strong>Qué son:</strong> En Laravel, los formularios son componentes HTML que permiten a los usuarios ingresar datos que serán procesados por el servidor. Las validaciones son las reglas que aseguran que los datos enviados cumplan ciertos requisitos antes de ser procesados.</p>
@@ -106,7 +135,7 @@
             </code></pre>
         </section>
 
-        <section id="form-creation-laravel" class="col-lg-8">
+        <section id="form2" class="col-lg-8">
             <h2>Creación de Formularios en Laravel</h2>
         
             <p><strong>Qué es:</strong> Los formularios en Laravel permiten a los usuarios enviar datos al servidor, usualmente con una solicitud <code>POST</code>. Laravel proporciona diversas herramientas, como <code>Form</code> helpers y <code>Blade</code>, para generar formularios de manera sencilla.</p>
@@ -129,7 +158,7 @@
             <p>Este formulario crea dos campos (título y contenido) y un botón de envío. El token <code>@csrf</code> es obligatorio para proteger el formulario de ataques CSRF.</p>
         </section>
 
-        <section id="advanced-validation-laravel" class="col-lg-8">
+        <section id="form3" class="col-lg-8">
             <h2>Validaciones Avanzadas en Laravel</h2>
         
             <p><strong>Qué son:</strong> Las validaciones avanzadas permiten aplicar reglas más complejas, como validaciones condicionales, validaciones personalizadas, y validación de arreglos.</p>
@@ -163,7 +192,7 @@
             <p>Aquí se usa una validación condicional que rechaza el email <code>test@example.com</code>.</p>
         </section>
 
-        <section id="crud-operations-laravel" class="col-lg-8">
+        <section id="form4" class="col-lg-8">
             <h2>Operaciones CRUD en Laravel</h2>
         
             <p><strong>Qué son:</strong> Los métodos <code>create</code>, <code>store</code>, <code>edit</code>, y <code>update</code> son usados comúnmente para manejar las operaciones de crear y actualizar datos en una aplicación web.</p>
@@ -219,7 +248,7 @@
             </code></pre>
         </section>
 
-        <section id="custom-validation-laravel" class="col-lg-8">
+        <section id="form5" class="col-lg-8">
             <h2>Validaciones Personalizadas en Laravel</h2>
         
             <p><strong>Qué son:</strong> A veces necesitas crear tus propias reglas de validación. Laravel te permite definir reglas personalizadas en clases separadas.</p>
@@ -261,7 +290,7 @@
         <div class="col-lg-8">
             Repasemos 
         </div>
-        <section id="migration-pacientes" class="col-lg-8">
+        <section id="form6" class="col-lg-8">
             <h2>Creación de la migración para la tabla "pacientes"</h2>
         
             <p><strong>Comando:</strong> Laravel nos permite crear migraciones de tablas usando el comando <code>php artisan make:migration</code>. Para este ejemplo, crearemos una migración para la tabla <code>pacientes</code> con 10 campos.</p>
@@ -303,7 +332,7 @@
             <p>Esta migración crea la tabla <code>pacientes</code> con los campos requeridos.</p>
         </section>
 
-        <section id="model-paciente" class="col-lg-8">
+        <section id="form7" class="col-lg-8">
             <h2>Creación del modelo "Paciente"</h2>
         
             <p><strong>Comando:</strong> Laravel nos permite crear un modelo usando el comando <code>php artisan make:model</code>. Esto generará una clase que representa la tabla <code>pacientes</code>.</p>
@@ -338,7 +367,7 @@
             <p>El modelo <code>Paciente</code> define los campos que pueden ser llenados masivamente mediante formularios usando el array <code>fillable</code>.</p>
         </section>
 
-        <section id="controller-paciente" class="col-lg-8">
+        <section id="form8" class="col-lg-8">
             <h2>Creación del controlador "PacienteController"</h2>
         
             <p><strong>Comando:</strong> Laravel nos permite crear un controlador de tipo *resource* que incluye los métodos básicos para CRUD (Crear, Leer, Actualizar, Borrar) mediante el comando <code>php artisan make:controller</code>.</p>
@@ -423,7 +452,7 @@
         </section>
 
         
-        <section id="form-create-edit" class="col-lg-8">
+        <section id="form9" class="col-lg-8">
             <h2>Formularios de creación y edición de pacientes</h2>
         
             <p><strong>Formulario de creación:</strong></p>
@@ -505,7 +534,7 @@
         </section>
         
                 
-    <section id="views-index-show" class="col-lg-8">
+    <section id="form10" class="col-lg-8">
     <h2>Vistas de listado y detalle de pacientes</h2>
 
     <p><strong>Vista de listado:</strong> La vista <code>index.blade.php</code> muestra todos los pacientes en una tabla:</p>
@@ -563,10 +592,191 @@
     </code></pre>
 </section>
 
+
+<section id="form11" class="col-lg-8">
+    <h2>Tipos de Validaciones en Formularios de Laravel</h2>
+    
+    <p><strong>Ejemplo del método store con validaciones:</strong></p>
+    <pre><code>
+    public function store(Request $request)
+    {
+        $validatedData = $request->validate([
+            'nombre' => 'required|string|max:255', // Obligatorio, debe ser una cadena de texto, longitud máxima de 255 caracteres
+            'email' => 'required|email|unique:users', // Obligatorio, formato de email, debe ser único en la tabla users
+            'password' => 'required|min:8|confirmed', // Obligatorio, mínimo 8 caracteres, requiere confirmación (password_confirmation)
+            'edad' => 'required|integer|min:18|max:100', // Obligatorio, debe ser un número entero, entre 18 y 100
+            'fecha_nacimiento' => 'required|date|before:today', // Obligatorio, debe ser una fecha, antes de hoy
+            'telefono' => 'required|digits:10', // Obligatorio, debe tener exactamente 10 dígitos
+            'direccion' => 'nullable|string', // No es obligatorio, si está presente debe ser una cadena de texto
+            'genero' => 'in:masculino,femenino', // El valor debe estar entre masculino o femenino
+            'estado_civil' => 'required|in:soltero,casado,divorciado,viudo', // Obligatorio, debe estar en una de las opciones permitidas
+            'archivo' => 'nullable|file|mimes:pdf,jpeg,png|max:2048', // Opcional, debe ser un archivo en formato PDF, JPEG o PNG, tamaño máximo de 2MB
+            'salario' => 'nullable|numeric|min:0', // Opcional, debe ser un número y no puede ser negativo
+            'url' => 'nullable|url', // Opcional, si está presente debe ser una URL válida
+            'ip_address' => 'nullable|ip', // Opcional, si está presente debe ser una dirección IP válida
+            'booleano' => 'required|boolean', // Obligatorio, debe ser verdadero (true) o falso (false)
+            'tiempo' => 'nullable|date_format:H:i', // Opcional, debe tener el formato de hora HH:mm
+            'mes' => 'nullable|date_format:Y-m', // Opcional, debe tener el formato de año y mes YYYY-MM
+            'dni' => 'required|digits_between:7,10', // Obligatorio, debe tener entre 7 y 10 dígitos
+            'confirmacion_email' => 'required|same:email', // Obligatorio, debe coincidir con el campo 'email'
+            'zona_horaria' => 'nullable|timezone', // Opcional, si está presente debe ser una zona horaria válida
+            'credit_card' => 'nullable|digits_between:13,19', // Opcional, entre 13 y 19 dígitos (para tarjetas de crédito)
+            'regex_field' => 'nullable|regex:/^[A-Za-z0-9]+$/', // Opcional, debe cumplir con la expresión regular
+            'palabra_clave' => 'nullable|string|in:clave1,clave2', // Opcional, debe ser 'clave1' o 'clave2'
+            'cantidad' => 'required|integer|gt:0', // Obligatorio, debe ser un número entero mayor a 0
+            'comentarios' => 'nullable|string|max:500', // Opcional, máximo 500 caracteres
+            'altura' => 'nullable|numeric|min:50|max:250', // Opcional, debe ser un número entre 50 y 250
+            'rango_fecha' => 'nullable|date|after_or_equal:start_date|before_or_equal:end_date', // Debe estar entre las fechas de inicio y fin
+            'nombre_unico' => 'nullable|string|unique:pacientes,nombre', // Debe ser un nombre único en la tabla pacientes
+            'campo_json' => 'nullable|json', // Debe ser un campo en formato JSON
+            'campo_alfa' => 'nullable|alpha', // Solo puede contener letras
+            'campo_alfa_num' => 'nullable|alpha_num', // Solo puede contener letras y números
+            'campo_alpha_dash' => 'nullable|alpha_dash', // Solo puede contener letras, números, guiones y guiones bajos
+            'campo_array' => 'nullable|array', // Debe ser un arreglo (array)
+            'longitud_array' => 'nullable|array|min:2|max:10', // Debe ser un array con entre 2 y 10 elementos
+            'color_hex' => 'nullable|regex:/^#[a-fA-F0-9]{6}$/', // Debe ser un código hexadecimal válido para colores
+            'cuenta_bancaria' => 'nullable|string|digits_between:8,12', // Debe ser un número de cuenta con entre 8 y 12 dígitos
+            'calificacion' => 'nullable|integer|between:1,5', // Debe ser un número entero entre 1 y 5
+            'archivo_unico' => 'nullable|file|unique:documentos,nombre', // Debe ser un archivo con nombre único en la tabla documentos
+            'numero_par' => 'nullable|integer|multiple_of:2', // Debe ser un número entero par
+            'uuid' => 'nullable|uuid', // Debe ser un UUID válido
+            'campo_not_in' => 'nullable|not_in:123,456,789', // No puede ser ninguno de estos valores
+            'exists' => 'nullable|exists:roles,id', // Debe existir en la tabla roles, campo id
+            'active' => 'nullable|boolean', // Debe ser un valor booleano (verdadero o falso)
+            'not_regex' => 'nullable|not_regex:/^[0-9]+$/', // No debe coincidir con la expresión regular (en este caso, solo números)
+            'empresa' => 'nullable|string|min:3', // Nombre de la empresa, opcional, mínimo de 3 caracteres
+        ]);
+    }
+    </code></pre>
+
+    <p><strong>Descripción de las validaciones:</strong></p>
+    <ul>
+        <li><code>required</code>: El campo es obligatorio.</li>
+        <li><code>string</code>: El campo debe ser una cadena de texto.</li>
+        <li><code>max:255</code>: La longitud máxima es de 255 caracteres.</li>
+        <li><code>email</code>: El campo debe tener formato de correo electrónico válido.</li>
+        <li><code>unique:table</code>: El campo debe ser único en la tabla especificada.</li>
+        <li><code>min:8</code>: La longitud mínima es de 8 caracteres.</li>
+        <li><code>confirmed</code>: El campo debe tener un campo de confirmación correspondiente.</li>
+        <li><code>integer</code>: El campo debe ser un número entero.</li>
+        <li><code>digits</code>: Debe tener exactamente ese número de dígitos.</li>
+        <li><code>in:values</code>: El valor debe estar en una lista específica de opciones.</li>
+        <li><code>file</code>: El campo debe ser un archivo.</li>
+        <li><code>mimes</code>: El archivo debe tener uno de los tipos MIME especificados.</li>
+        <li><code>numeric</code>: El campo debe ser un número.</li>
+        <li><code>url</code>: El campo debe ser una URL válida.</li>
+        <li><code>ip</code>: El campo debe ser una dirección IP válida.</li>
+        <li><code>boolean</code>: El campo debe ser verdadero o falso.</li>
+        <li><code>date_format</code>: El campo debe coincidir con el formato de fecha especificado.</li>
+        <li><code>same</code>: El valor del campo debe coincidir con otro campo.</li>
+        <li><code>timezone</code>: Debe ser una zona horaria válida.</li>
+        <li><code>regex</code>: Debe coincidir con una expresión regular.</li>
+        <li><code>gt:0</code>: El valor debe ser mayor que 0.</li>
+        <li><code>between</code>: El valor debe estar entre un rango de valores.</li>
+        <li><code>json</code>: El campo debe estar en formato JSON.</li>
+        <li><code>alpha</code>: Solo puede contener letras.</li>
+        <li><code>alpha_num</code>: Solo puede contener letras y números.</li>
+        <li><code>alpha_dash</code>: Solo puede contener letras, números, guiones y guiones bajos.</li>
+        <li><code>array</code>: El campo debe ser un arreglo (array).</li>
+        <li><code>uuid</code>: El campo debe ser un UUID válido.</li>
+        <li><code>not_in</code>: El valor no debe estar en la lista de opciones.</li>
+        <li><code>exists</code>: Debe existir en la tabla especificada.</li>
+        <li><code>multiple_of</code>: El valor debe ser un múltiplo del número especificado.</li>
+    </ul>
+</section>
+
+<section id="form12" class="col-lg-8">
+    <h2>Formas de Mostrar el Listado de Pacientes</h2>
+    
+    <p>A continuación, se describen siete formas diferentes de mostrar el listado de pacientes en la vista, junto con sus pros y contras en términos de rendimiento. Además, se incluye una explicación sobre cómo paginar los resultados desde el servidor.</p>
+
+    <h3>1. Mostrar Todos los Pacientes</h3>
+    <pre><code>
+    $pacientes = Paciente::all();
+    return view('pacientes.index', compact('pacientes'));
+    </code></pre>
+    <ul>
+        <li><strong>Pro:</strong> Muy fácil de implementar. No requiere paginación ni lógica adicional.</li>
+        <li><strong>Contra:</strong> Si hay una gran cantidad de registros, puede afectar gravemente el rendimiento, ya que se cargan todos los pacientes en la memoria del servidor.</li>
+    </ul>
+
+    <h3>2. Paginación desde el Servidor</h3>
+    <pre><code>
+    $pacientes = Paciente::paginate(10);
+    return view('pacientes.index', compact('pacientes'));
+    </code></pre>
+    <ul>
+        <li><strong>Pro:</strong> Mejora el rendimiento al limitar el número de pacientes que se cargan en una página (p. ej., 10 pacientes por página). Laravel genera automáticamente los enlaces de paginación.</li>
+        <li><strong>Contra:</strong> La paginación depende de recargar toda la página, lo que puede no ser ideal para una experiencia de usuario fluida.</li>
+    </ul>
+
+    <h3>3. Paginación con Livewire (Frontend Reactivo)</h3>
+    <pre><code>
+    public function render()
+    {
+        $pacientes = Paciente::paginate(10);
+        return view('livewire.pacientes-index', ['pacientes' => $pacientes]);
+    }
+    </code></pre>
+    <ul>
+        <li><strong>Pro:</strong> Utiliza Livewire para hacer la paginación de manera reactiva, lo que permite cambiar de página sin recargar toda la vista. Ideal para mejorar la experiencia de usuario.</li>
+        <li><strong>Contra:</strong> Puede consumir más recursos del servidor en comparación con la paginación tradicional, ya que mantiene la conexión activa entre el frontend y el backend.</li>
+    </ul>
+
+    <h3>4. Uso de `lazy-loading` para Cargar los Pacientes Dinámicamente</h3>
+    <pre><code>
+    $pacientes = Paciente::paginate(10); // En la vista se puede implementar lazy-loading con JavaScript
+    </code></pre>
+    <ul>
+        <li><strong>Pro:</strong> Mejora el rendimiento del frontend al cargar los pacientes progresivamente cuando el usuario se desplaza en la página.</li>
+        <li><strong>Contra:</strong> Requiere implementación adicional en JavaScript para hacer las solicitudes AJAX y manejar el desplazamiento.</li>
+    </ul>
+
+    <h3>5. Uso de `Eager Loading` para Optimizar Consultas</h3>
+    <pre><code>
+    $pacientes = Paciente::with('doctor')->paginate(10);
+    return view('pacientes.index', compact('pacientes'));
+    </code></pre>
+    <ul>
+        <li><strong>Pro:</strong> Optimiza las consultas relacionadas al cargar las relaciones (como `doctor`) en una sola consulta. Reduce el número de consultas a la base de datos.</li>
+        <li><strong>Contra:</strong> Si se cargan relaciones innecesarias, puede aumentar el consumo de memoria y hacer que el renderizado sea más lento.</li>
+    </ul>
+
+    <h3>6. Uso de `Chunking` para Procesar Grandes Cantidades de Pacientes</h3>
+    <pre><code>
+    Paciente::chunk(100, function ($pacientes) {
+        foreach ($pacientes as $paciente) {
+            // Procesar pacientes
+        }
+    });
+    </code></pre>
+    <ul>
+        <li><strong>Pro:</strong> Carga los pacientes en porciones pequeñas, lo que evita que la memoria del servidor se sobrecargue al trabajar con grandes cantidades de registros.</li>
+        <li><strong>Contra:</strong> No es útil si necesitas mostrar los pacientes en una vista, ya que está más orientado a procesamientos en segundo plano.</li>
+    </ul>
+
+    <h3>7. Uso de Filtrado y Búsqueda de Pacientes con Paginación</h3>
+    <pre><code>
+    $pacientes = Paciente::where('nombre', 'like', '%'. $search .'%')->paginate(10);
+    return view('pacientes.index', compact('pacientes'));
+    </code></pre>
+    <ul>
+        <li><strong>Pro:</strong> Permite filtrar o buscar pacientes por nombre (u otros campos) y paginarlos. Mejora la experiencia de usuario y el rendimiento al reducir los registros que se muestran.</li>
+        <li><strong>Contra:</strong> Puede ser necesario un índice en la base de datos para evitar que las consultas de búsqueda sean lentas, especialmente con grandes volúmenes de datos.</li>
+    </ul>
+
+    <h3>Conclusión</h3>
+    <p>El método ideal para mostrar el listado de pacientes dependerá del tamaño de los datos y de la experiencia de usuario que se desea ofrecer. Para grandes cantidades de pacientes, la paginación desde el servidor y la combinación con tecnologías reactivas como Livewire son soluciones efectivas que mejoran el rendimiento y la UX. La optimización con técnicas como eager loading y chunking puede ayudar a reducir el tiempo de procesamiento y mejorar la eficiencia del servidor.</p>
+</section>
+
         
         
     </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

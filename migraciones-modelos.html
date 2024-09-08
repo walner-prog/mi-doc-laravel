@@ -48,7 +48,7 @@
         
         <div class="row">
             <div class="col-lg-4  col-md-4 col-sm-4">
-                <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top w-25 mt-5" >
+                <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top w-75 mt-5" >
                     <div class="container-fluid">
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
@@ -79,13 +79,7 @@
                         <li><a href="#authorize-controller">Uso de authorize en un controlador</a></li>
                         <li><a href="#middleware-group">Aplicar un Middleware a un Grupo de Rutas</a></li>
                         <li><a href="#middleware-method">Aplicar un Middleware a un Método Específico en el Controlador</a></li>
-                        <li><a href="#make-middleware">Generar un Middleware Personalizado</a></li>
-                        <li><a href="#assign-middleware">Asignar Middleware Personalizado a Rutas</a></li>
-                        <li><a href="#authorize-resource">Usar Políticas Automáticamente en Controladores de Recursos</a></li>
-                        <li><a href="#conditional-policy">Ejecutar Políticas Condicionales</a></li>
-                        <li><a href="#global-middleware">Aplicar Middleware Globalmente en la Aplicación</a></li>
-                        <li><a href="#make-factory">php artisan make:factory</a></li>
-                        <li><a href="#make-seeder">php artisan make:seeder</a></li>
+                       
                     </ul>
                     </div>
 
@@ -93,7 +87,7 @@
                 
             </div>
         </div>
-        <div class="row">
+        <div class="row" style="margin-top: 70px;">
            
 
             <div class="col-lg-4"></div>
@@ -773,135 +767,6 @@ public function update(Request $request, Doctor $doctor)
     <p><strong>Resultado esperado:</strong></p>
     <p>La autorización se verifica solo cuando se intenta actualizar un doctor.</p>
 </section>
-
-<section id="make-middleware" class=" col-lg-8">
-    <h2>Generar un Middleware Personalizado</h2>
-    <p><strong>Qué hace:</strong> Crea un middleware personalizado que se puede usar para ejecutar lógica antes de que se procese una solicitud.</p>
-    <p><strong>Cómo lo hace:</strong> Laravel genera una clase middleware que puede manejar la solicitud antes de pasarla al controlador.</p>
-    <p><strong>Ejemplo:</strong></p>
-    <pre><code>php artisan make:middleware CheckDoctorStatus</code></pre>
-    <p>Implementación del Middleware:</p>
-    <pre><code>
-public function handle($request, Closure $next)
-{
-    if ($request->doctor->status !== 'active') {
-        return redirect('doctors')->with('error', 'Doctor is not active.');
-    }
-
-    return $next($request);
-}
-    </code></pre>
-    <p><strong>Resultado esperado:</strong></p>
-    <p>Antes de procesar la solicitud, el middleware verifica el estado del doctor y, si no es activo, redirige al usuario con un mensaje de error.</p>
-</section>
-
-<section id="assign-middleware" class=" col-lg-8">
-    <h2>Asignar Middleware Personalizado a Rutas</h2>
-    <p><strong>Qué hace:</strong> Permite aplicar un middleware personalizado a rutas específicas o grupos de rutas.</p>
-    <p><strong>Cómo lo hace:</strong> Registrar el middleware en <code>app/Http/Kernel.php</code> y luego aplicarlo en <code>web.php</code>.</p>
-    <p><strong>Ejemplo:</strong></p>
-    <pre><code>
-// Registrar en Kernel.php
-protected $routeMiddleware = [
-    'check.status' => \App\Http\Middleware\CheckDoctorStatus::class,
-];
-
-// Aplicar en web.php
-Route::get('/doctors/{doctor}', [DoctorController::class, 'show'])->middleware('check.status');
-    </code></pre>
-    <p><strong>Resultado esperado:</strong></p>
-    <p>La información del doctor solo se mostrará si el middleware CheckDoctorStatus permite que la solicitud avance.</p>
-</section>
-
-<section id="authorize-resource" class=" col-lg-8">
-    <h2>Usar Políticas Automáticamente en Controladores de Recursos</h2>
-    <p><strong>Qué hace:</strong> Aplica automáticamente una política a todos los métodos de un controlador de recursos.</p>
-    <p><strong>Cómo lo hace:</strong> En el controlador de recursos, utiliza la política para manejar el acceso a los métodos.</p>
-    <p><strong>Ejemplo:</strong></p>
-    <pre><code>
-public function __construct()
-{
-    $this->authorizeResource(Doctor::class, 'doctor');
-}
-    </code></pre>
-    <p><strong>Resultado esperado:</strong></p>
-    <p>Las políticas se aplican automáticamente a todas las acciones del controlador de recursos según las reglas definidas en la política.</p>
-</section>
-
-<section id="conditional-policy" class=" col-lg-8">
-    <h2>Ejecutar Políticas Condicionales</h2>
-    <p><strong>Qué hace:</strong> Permite aplicar lógica condicional a las políticas para autorizar acciones específicas basadas en la condición.</p>
-    <p><strong>Cómo lo hace:</strong> Usa el método <code>authorize</code> con condiciones específicas en el controlador.</p>
-    <p><strong>Ejemplo:</strong></p>
-    <pre><code>
-public function destroy(Doctor $doctor)
-{
-    if ($doctor->status === 'inactive') {
-        $this->authorize('forceDelete', $doctor);
-    } else {
-        $this->authorize('delete', $doctor);
-    }
-
-    // Lógica para eliminar el doctor
-}
-    </code></pre>
-    <p><strong>Resultado esperado:</strong></p>
-    <p>Dependiendo del estado del doctor, se aplica la política de eliminación correspondiente.</p>
-</section>
-
-<section id="global-middleware" class=" col-lg-8">
-    <h2>Aplicar Middleware Globalmente en la Aplicación</h2>
-    <p><strong>Qué hace:</strong> Aplica un middleware a todas las solicitudes entrantes a la aplicación.</p>
-    <p><strong>Cómo lo hace:</strong> Registra el middleware en <code>app/Http/Kernel.php</code> en la propiedad <code>$middleware</code>.</p>
-    <p><strong>Ejemplo:</strong></p>
-    <pre><code>
-protected $middleware = [
-    \App\Http\Middleware\CheckForMaintenanceMode::class,
-    \App\Http\Middleware\TrustProxies::class,
-    \App\Http\Middleware\PreventRequestsDuringMaintenance::class,
-];
-    </code></pre>
-    <p><strong>Resultado esperado:</strong></p>
-    <p>El middleware se ejecuta para cada solicitud, asegurando que la aplicación esté protegida y funcionando correctamente.</p>
-</section>
-
-<section id="make-factory" class=" col-lg-8">
-    <h2>Comando: php artisan make:factory</h2>
-    <p><strong>Qué hace:</strong> Genera una nueva clase de fábrica para un modelo, facilitando la creación de datos de prueba.</p>
-    <p><strong>Cómo lo hace:</strong> Laravel crea una clase en <code>database/factories</code> con métodos para definir los atributos de los modelos.</p>
-    <p><strong>Ejemplo:</strong></p>
-    <pre><code>php artisan make:factory DoctorFactory --model=Doctor</code></pre>
-    <p><strong>Resultado esperado:</strong></p>
-    <pre><code>
-use Faker\Generator as Faker;
-
-$factory->define(App\Models\Doctor::class, function (Faker $faker) {
-    return [
-        'name' => $faker->name,
-        'specialty' => $faker->word,
-    ];
-});
-    </code></pre>
-    <p>Esto genera una fábrica que crea doctores con un nombre y especialidad falsos.</p>
-</section>
-
-<section id="make-seeder" class=" col-lg-8">
-    <h2>Comando: php artisan make:seeder</h2>
-    <p><strong>Qué hace:</strong> Crea una nueva clase de sembrador para insertar datos de prueba en la base de datos.</p>
-    <p><strong>Cómo lo hace:</strong> Laravel genera una clase en <code>database/seeders</code> donde puedes definir la lógica para insertar datos en las tablas.</p>
-    <p><strong>Ejemplo:</strong></p>
-    <pre><code>php artisan make:seeder DoctorsTableSeeder</code></pre>
-    <p><strong>Resultado esperado:</strong></p>
-    <pre><code>
-public function run()
-{
-    \App\Models\Doctor::factory(10)->create();
-}
-    </code></pre>
-    <p>Este sembrador utiliza la fábrica para crear 10 doctores con datos ficticios.</p>
-</section>
-
-
 
 
 </div>
